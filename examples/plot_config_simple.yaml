@@ -1,0 +1,36 @@
+figure:
+  height: 10cm
+  width: 12cm
+axes_descriptors:
+- axes:
+    height: 8cm
+    width: 8cm
+    x_min: -3
+    y_min: -2
+    x_label_offset:
+       x: 0cm
+       y: -0.5cm
+    y_label_offset:
+       x: 0.5cm
+       y: -0.25cm
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  - function: sin(x)
+    label: $\sin(x)$
+  - function: x**2
+    label: $x^2$
+  areas:
+  - function:
+    - sin(x)
+    - x**2
+    label: A
+    condition: y1 >= y2
+    plot_args:
+      alpha: 0.3
+      color: red
+  vlines:
+  - x_var: sect_x_1
+  vspans:
+  - x0: -2.5
+    x1: -2

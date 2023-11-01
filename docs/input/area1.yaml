@@ -1,0 +1,42 @@
+figure:
+  height: 8cm
+  width: 12cm
+axes_descriptors:
+- axes: 
+    height: 6cm
+    width: 4cm
+    x_min: -1
+    y_min: -2
+    show_legend: false
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  - function: sin(x)
+  - function: 0.25*x**2
+  areas:
+  - &my_area
+    function:
+    - sin(x)
+    - 0.25*x**2
+    plot_args:
+      alpha: 0.3
+      color: green
+- axes: 
+    height: 6cm
+    width: 4cm
+    x_min: -1
+    y_min: -2
+    show_legend: false
+  bottom: 1cm
+  left: 7cm
+  graphs:
+  - function: sin(x)
+  - function: 0.25*x**2
+  areas:
+  - function:
+    - sin(x)
+    - 0.25*x**2
+    plot_args:
+      alpha: 0.3
+      color: green
+    condition: y1 >= y2

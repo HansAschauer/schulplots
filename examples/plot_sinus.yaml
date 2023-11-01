@@ -1,0 +1,23 @@
+figure:
+  height: 8cm
+  width: 10cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 8cm
+    x_min: -3
+    y_min: -2
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  - function: sin(x)
+    label: $\sin(x)$
+  areas:
+  - function:
+    - sin(x)
+    - 0*x
+    label: $A = \int_0^\pi \sin(x)\,dx$
+    condition: y1 >= y2
+    plot_args:
+      alpha: 0.3
+      color: red

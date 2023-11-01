@@ -1,0 +1,7 @@
+#! /bin/sh
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+YMAL_FILE=$1
+PNG_FILE=$(basename "${1%.yaml}").png
+#echo $YMAL_FILE
+#echo $PNG_FILE
+python3 $SCRIPT_DIR/../src/main.py -o $PNG_FILE $YMAL_FILE

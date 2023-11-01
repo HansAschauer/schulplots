@@ -1,0 +1,49 @@
+figure:
+  height: 8cm
+  width: 12cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 4cm
+    x_min: -1.5
+    y_min: -2
+    show_legend: true
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  # Das ist der interessante Graph
+  - function: maximum(sin(4*x), sin(2*x))
+    label: $f_1$
+  - function: sin(4*x)
+    plot_args:
+      color: black
+      alpha: 0.2
+    label: 
+  - function: sin(2*x)
+    plot_args:
+      color: black
+      alpha: 0.2
+- axes:
+    height: 6cm
+    width: 4cm
+    x_min: -3
+    y_min: -2
+    legend_options:
+      loc: upper left
+  bottom: 1cm
+  left: 7cm
+  graphs:
+  # Das ist der interessante Graph
+  - function: heaviside(x+1,0) * 2*sin(x) + heaviside(-1-x,1) * 2*cos(x)
+    label: $f_2$
+    discontinuities: 
+    - x0: -1
+      belongs_to: x>x0
+  - function: 2*sin(x)
+    plot_args:
+      color: black
+      alpha: 0.2
+  - function: 2*cos(x)
+    plot_args:
+      color: black
+      alpha: 0.2

@@ -1,0 +1,9 @@
+figure:
+  height: 8cm
+  width: 10cm
+  grid: 7mm
+  grid_options:
+    color: blue
+    alpha: 0.2
+    linewidth: 0.5
+axes_descriptors: []

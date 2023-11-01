@@ -1,0 +1,26 @@
+figure:
+  height: 8cm
+  width: 10cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 8cm
+    x_min: -3
+    y_min: -2
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  - function: 3*sin(x)
+  - function: 1 + 0*x
+    plot_args:
+      alpha: 0.1
+      color: black
+  areas:
+  - function:
+    - 3*sin(x)
+    - 1 + 0*x
+    plot_args:
+      alpha: 0 # do not show, only for calculating the intersections
+  vspans:
+  - x0_var: sect_x_0
+    x1_var: sect_x_1

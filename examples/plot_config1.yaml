@@ -1,0 +1,49 @@
+templates:
+  my_axes: &my_axes
+    height: 10cm
+    width: 8cm
+    x_min: -3
+    y_min: -2
+    
+figure:
+  height: 12cm
+  width: 18cm
+axes_descriptors:
+- axes:
+    <<: *my_axes
+    x_min: -1
+    y_min: -1
+  bottom: 1cm
+  left: 1cm
+  areas:
+  - condition: y1 >= y2
+    function:
+    - sin(x)
+    - x**2
+    label: $\int_0^{x_0} sin(x) - x^2 \, dx$
+    plot_args:
+      alpha: 0.2
+  graphs:
+  - function:
+    - sin(x)
+    label: $\sin(x)$
+  - function:
+    - x**2
+    label: $x^2$
+- axes:
+    <<: *my_axes
+  bottom: 1cm
+  left: 9.5cm
+  graphs:
+  - function:
+    - x**3
+    label: $x^3$
+  - function:
+    - 1/x
+    label: $1/x$
+  areas:
+  - condition: x>0
+    function:
+    - minimum(x**3, 1/x)
+    - "0"
+    label: A

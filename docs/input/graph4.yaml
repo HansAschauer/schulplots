@@ -1,0 +1,43 @@
+figure:
+  height: 8cm
+  width: 10cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 2cm
+    x_min: -1
+    y_min: -2
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  - function: heaviside(x,0)
+    label: x<x0
+    discontinuities:
+    - x0: 0
+      belongs_to: x<x0
+- axes:
+    height: 6cm
+    width: 2cm
+    x_min: -1
+    y_min: -2
+  bottom: 1cm
+  left: 4cm
+  graphs:
+  - function: heaviside(x,0)
+    label: x>x0
+    discontinuities:
+    - x0: 0
+      belongs_to: x>x0
+- axes:
+    height: 6cm
+    width: 2cm
+    x_min: -1
+    y_min: -2
+  bottom: 1cm
+  left: 7cm
+  graphs:
+  - function: heaviside(x,0)
+    label: none
+    discontinuities:
+    - x0: 0
+      belongs_to: none

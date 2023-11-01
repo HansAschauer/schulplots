@@ -1,0 +1,20 @@
+figure:
+  height: 8cm
+  width: 12cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 4cm
+    x_min: -2
+    y_min: -2
+    show_legend: false
+  bottom: 1cm
+  left: 0.5cm
+- axes:
+    height: 6cm
+    width: 4cm
+    x_min: -1
+    y_min: -1
+    unit: 2cm
+  bottom: 1cm
+  left: 6cm

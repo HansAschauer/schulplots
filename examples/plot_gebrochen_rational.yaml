@@ -1,0 +1,38 @@
+figure:
+  height: 16cm
+  width: 22cm
+axes_descriptors:
+- axes:
+    height: 14cm
+    width: 20cm
+    x_min: -10
+    y_min: -7
+    x_label_offset:
+       x: 0cm
+       y: -0.5cm
+    y_label_offset:
+       x: 0.5cm
+       y: -0.25cm
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  - function: (x-4)*(x-1)*(x+3) / (4*(x-3)*(x+4))
+    label: $\dfrac{x^3-2x^2-11x+12}{4x²+4x-48}$
+  #- function: (x**3 - 2*x**2 -11*x + 12)/(4*x**2 + 4*x -48)
+  - function: 1/4*x -0.5
+    plot_args: 
+      ls: --
+      alpha: 0.5
+  vlines:
+  - x: 3
+    plot_args: 
+      ls: --
+      alpha: 0.5
+  - x: -4
+    plot_args: 
+      ls: --
+      alpha: 0.5
+
+# (x-4)(x-1)(x+3)   (x²-5x+4)(x+3)   x³-2x²-11x+12
+# --------------- = -------------- = -------------
+#   4(x-3)(x+4)       4(x-3)(x+4)     4x²+4x-48

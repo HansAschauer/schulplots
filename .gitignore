@@ -1,0 +1,6 @@
+__pycache__/
+*.__pycache__
+/site/
+images/*.png
+docs/images/
+*.pyc

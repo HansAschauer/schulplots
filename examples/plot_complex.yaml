@@ -1,0 +1,40 @@
+figure:
+  height: 8cm
+  width: 11cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 4cm
+    x_min: -1
+    y_min: -3
+    show_legend: false
+  bottom: 1cm
+  left: 1cm
+  graphs:
+  - function: exp(-x)
+    plot_args: 
+      ls: ":"
+      color: orange
+  - function: -exp(-x)
+    plot_args: 
+      ls: ":"
+      color: orange
+  - function: exp(-x) * cos(10*x)
+- axes:
+    height: 6cm
+    width: 4cm
+    x_min: -1
+    y_min: -3
+    show_legend: false
+  bottom: 1cm
+  left: 6cm
+  graphs:
+  - function: 2*sin(x)
+    plot_args: 
+      ls: ":"
+      color: orange
+  - function: -2*sin(x)
+    plot_args: 
+      ls: ":"
+      color: orange
+  - function: 2*sin(x) * cos(10*x)
