@@ -1,10 +1,10 @@
 from dataclasses import dataclass, field
-from typing import Optional, Any, Callable, Union
+from typing import Optional, Any, Callable, Union, ClassVar
 from types import CodeType
 from enum import Enum, unique
 
 import numpy as np
-
+from .converter import register_model, register_impl
 try:
     from icecream import ic
 except ImportError:  # Graceful fallback if IceCream isn't installed.
@@ -21,9 +21,11 @@ class DiscontinuityBelongsTo(Enum):
 class Discontinuity:
     x0: float
     belongs_to: DiscontinuityBelongsTo = DiscontinuityBelongsTo.GREATER
-    
+
+@register_model  
 @dataclass
 class SGraphModel:
+    class_id: ClassVar[str] = "Graph"
     function: Union[str, list[str]]
     label: Optional[str] = None
     plot_args: dict[str, Any] = field(default_factory=dict)
@@ -36,7 +38,8 @@ class SGraphModel:
         if self.label is None:
             self.label = None
             #self.label = self.function[0]
- 
+
+@register_impl
 class SGraph(SGraphModel):
     _function_expr: list[str]
     _function_code: list[CodeType]
@@ -166,7 +169,11 @@ class SGraph(SGraphModel):
         return y
 
 
-class FillBetween(SGraph):
+@register_model  
+class FillBetweenModel(SGraphModel):
+    class_id: ClassVar[str] = "Area"
+@register_impl
+class FillBetween(SGraph, FillBetweenModel):
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         self.condition = self._condition_expr

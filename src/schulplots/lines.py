@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
-from typing import Optional, Any
+from typing import Optional, Any, ClassVar
 import numpy as np
+
+from .converter import register_model, register_impl
 
 try:
     from icecream import ic
@@ -9,21 +11,22 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
 
 from .saxes import SAxes
     
+@register_model  
 @dataclass
 class VLineModel:
+    class_id: ClassVar[str] = "VLine"    
     x: float = np.inf
     x_var: str = ""
     y_min: float = 0
     y_max: float = 1
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.5))
-
+@register_impl
 class VLine(VLineModel):
-    _saxes: Optional[SAxes]
+    _saxes: SAxes
     def __init__(self, saxes: SAxes, *args, **kwargs):
-        self.set_saxes(saxes)
-        #print("XXX", args, kwargs)
         super().__init__(*args, **kwargs)
-        #print("YYYY")
+        self.set_saxes(saxes)
+        print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         if self.x != np.inf:
@@ -34,8 +37,36 @@ class VLine(VLineModel):
             x = eval(self.x_var, {}, self._saxes.axes_variables)
         self._saxes.axes.axvline(x=x,ymin=self.y_min, ymax=self.y_max, 
                                  **self.plot_args)
+@register_model  
+@dataclass
+class HLineModel:
+    class_id: ClassVar[str] = "HLine"    
+    y: float = np.inf
+    y_var: str = ""
+    x_min: float = 0
+    x_max: float = 1
+    plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.5))
+@register_impl
+class HLine(HLineModel):
+    _saxes: SAxes
+    def __init__(self, saxes: SAxes, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.set_saxes(saxes)
+        print(f"in {self.class_id}.__init__", self)
+    def set_saxes(self, saxes: SAxes):
+        self._saxes = saxes
+        if self.y != np.inf:
+            y = self.y
+        else: 
+            return
+        if self.y_var:
+            y = eval(self.y_var, {}, self._saxes.axes_variables)
+        self._saxes.axes.axhline(y=y,xmin=self.x_min, xmax=self.x_max, 
+                                 **self.plot_args)
+@register_model  
 @dataclass
 class VSpanModel:
+    class_id: ClassVar[str] = "VSpan"    
     x0: float = 0
     x1: float = 0
     x0_var: str = ""
@@ -44,11 +75,13 @@ class VSpanModel:
     y_max: float = 1
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.3, lw=0))
 
+@register_impl
 class VSpan(VSpanModel):
     _saxes: Optional[SAxes]
     def __init__(self, saxes: SAxes, *args, **kwargs):
-        self.set_saxes(saxes)
         super().__init__(*args, **kwargs)
+        self.set_saxes(saxes)
+        print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         if self.x0_var:
@@ -61,4 +94,36 @@ class VSpan(VSpanModel):
             x1 = self.x1
         self._saxes.axes.axvspan(xmin=x0, xmax=x1,ymin=self.y_min, 
                                  ymax=self.y_max, **self.plot_args)
+        
+@register_model  
+@dataclass
+class HSpanModel:
+    class_id: ClassVar[str] = "HSpan"    
+    y0: float = 0
+    y1: float = 0
+    y0_var: str = ""
+    y1_var: str = ""
+    x_min: float = 0
+    x_max: float = 1
+    plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.3, lw=0))
+
+@register_impl
+class HSpan(HSpanModel):
+    _saxes: Optional[SAxes]
+    def __init__(self, saxes: SAxes, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.set_saxes(saxes)
+        print(f"in {self.class_id}.__init__", self)
+    def set_saxes(self, saxes: SAxes):
+        self._saxes = saxes
+        if self.y0_var:
+            y0 =  eval(self.y0_var, {}, self._saxes.axes_variables)
+        else: 
+            y0 = self.y0
+        if self.y1_var:
+            y1 =  eval(self.y1_var, {}, self._saxes.axes_variables)
+        else:
+            y1 = self.y1
+        self._saxes.axes.axhspan(ymin=y0, ymax=y1,xmin=self.x_min, 
+                                 xmax=self.x_max, **self.plot_args)
         

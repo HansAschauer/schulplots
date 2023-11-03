@@ -70,8 +70,8 @@ class SFigure(SFigureModel):
     def __enter__(self) -> "SFigure":
         return self
     def __exit__(self,exc_type, exc_val, exc_tb):
-        print("XXX in __exit__")
-        print(self.saxes)
+        #print("XXX in __exit__")
+        #print(self.saxes)
         for sax in self.saxes:
             sax.finalize()
         if self.output_file is None:

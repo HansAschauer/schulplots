@@ -15,24 +15,43 @@ axes_descriptors:
        y: -0.25cm
   bottom: 1cm
   left: 1cm
-  graphs:
-  - function: (x-4)*(x-1)*(x+3) / (4*(x-3)*(x+4))
+  items:
+#  - type: Graph
+#    function: (x**3 - 2*x**2 -11*x + 12)/(4*x**2 + 4*x -48)
+  - type: Graph
+    function: (x-4)*(x-1)*(x+3) / (4*(x-3)*(x+4))
     label: $\dfrac{x^3-2x^2-11x+12}{4x²+4x-48}$
-  #- function: (x**3 - 2*x**2 -11*x + 12)/(4*x**2 + 4*x -48)
-  - function: 1/4*x -0.5
+  - type: Graph
+    function: 1/4*x -0.5
     label: Asymptote
     plot_args: 
       ls: --
       alpha: 0.5
-  vlines:
-  - x: 3
+  - type: VLine
+    x: 3
     plot_args: 
       ls: --
       alpha: 0.5
-  - x: -4
+  - type: VLine
+    x: -4
     plot_args: 
       ls: --
       alpha: 0.5
+  - type: HLine
+    y: 0.5
+  - type: VSpan
+    x0: 2
+    x1: 2.5
+  - type: HSpan
+    y0: -1
+    y1: -2
+  - type: Text
+    x: 3
+    y: 3.5
+    text: $x^2 \int_a^b f(x)\,dx$
+    text_args:
+      rotation: vertical
+      ha: center
 
 # (x-4)(x-1)(x+3)   (x²-5x+4)(x+3)   x³-2x²-11x+12
 # --------------- = -------------- = -------------

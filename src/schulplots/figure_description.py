@@ -13,6 +13,8 @@ from .lines import VLineModel, VSpanModel, VLine, VSpan
 from .types import Size
 from .sfigure import SFigure
 
+from .converter import AxesAddable, impl_for_type
+
 def to_dict(datainstance:Any) -> dict:
     dd = {f.name: getattr(datainstance, f.name) for f in fields(datainstance)}
     return dd
@@ -25,6 +27,7 @@ class AxesWithGraphs:
     areas: list[SGraphModel] = field(default_factory=list)
     vlines: list[VLineModel] = field(default_factory=list)
     vspans: list[VSpanModel] = field(default_factory=list)
+    items: list[AxesAddable] = field(default_factory=list)
     left: Size = 0
     bottom: Size = 0
     templates: dict = field(default_factory=dict)
@@ -44,6 +47,9 @@ class AxesWithGraphs:
         for a in self.vspans:
             VSpan(saxes, **to_dict(a))
             #a.set_saxes(self.axes)
+        for a in self.items:
+            print("XXX", type(a), impl_for_type(a.class_id))
+            impl_for_type(a.class_id)(saxes, **to_dict(a))
 
 @dataclass
 class FigureDescription:

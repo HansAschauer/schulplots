@@ -125,7 +125,7 @@ class SAxes(SAxesModel):
     
     def finalize(self):
         if self.show_legend:
-            print("XXX legend")
+            #print("XXX legend")
             self.axes.legend(**self.legend_options)
 
     def plot(self, *args, **kwargs):
