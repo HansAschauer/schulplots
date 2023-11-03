@@ -1,36 +1,49 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
+from typing import Any
 
-
+from pprint import pprint
 try:
     from icecream import ic
 except ImportError:  # Graceful fallback if IceCream isn't installed.
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
 
-from .saxes import SAxes
-from .sgraph import SGraph, FillBetween
-from .lines import VLine, VSpan
+from .saxes import SAxes, SAxesModel
+from .sgraph import SGraphModel , FillBetween, SGraph
+from .lines import VLineModel, VSpanModel, VLine, VSpan
 from .types import Size
 from .sfigure import SFigure
+
+def to_dict(datainstance:Any) -> dict:
+    dd = {f.name: getattr(datainstance, f.name) for f in fields(datainstance)}
+    return dd
+
+
 @dataclass
 class AxesWithGraphs:
-    axes: SAxes
-    graphs: list[SGraph] = field(default_factory=list)
-    areas: list[FillBetween] = field(default_factory=list)
-    vlines: list[VLine] = field(default_factory=list)
-    vspans: list[VSpan] = field(default_factory=list)
+    axes: SAxesModel
+    graphs: list[SGraphModel] = field(default_factory=list)
+    areas: list[SGraphModel] = field(default_factory=list)
+    vlines: list[VLineModel] = field(default_factory=list)
+    vspans: list[VSpanModel] = field(default_factory=list)
     left: Size = 0
     bottom: Size = 0
     templates: dict = field(default_factory=dict)
     
-    def setup(self):
+    def setup(self, saxes: SAxes):
+        
         for g in self.graphs:
-            g.set_saxes(self.axes)
+            SGraph(saxes, **to_dict(g))
+            #g.set_saxes(self.axes)
         for a in self.areas:
-            a.set_saxes(self.axes)
+            FillBetween(saxes, **to_dict(a))
+            #a.set_saxes(self.axes)
         for a in self.vlines:
-            a.set_saxes(self.axes)
+            #pprint(to_dict(a))
+            VLine(saxes, **to_dict(a))
+            #a.set_saxes(self.axes)
         for a in self.vspans:
-            a.set_saxes(self.axes)
+            VSpan(saxes, **to_dict(a))
+            #a.set_saxes(self.axes)
 
 @dataclass
 class FigureDescription:
@@ -39,7 +52,9 @@ class FigureDescription:
     
     def create_figure(self):
         with self.figure:
-            self.figure.set_figure()
+            #self.figure.set_figure()
             for ax in self.axes_descriptors:
-                self.figure.add_axes(ax.axes, left=ax.left, bottom=ax.bottom)
-                ax.setup()    
+                saxes = SAxes(self.figure, ax.left, ax.bottom, 
+                              **to_dict(ax.axes))
+                #self.figure.add_axes(ax.axes, left=ax.left, bottom=ax.bottom)
+                ax.setup(saxes)    

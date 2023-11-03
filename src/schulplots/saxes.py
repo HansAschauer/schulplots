@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional, Any
+from typing import Optional, Any, TYPE_CHECKING
 
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
@@ -8,6 +8,8 @@ import numpy as np
 
 from .types import cm, Size, Point
 
+if TYPE_CHECKING:
+    from .sfigure import SFigure
 
 try:
     from icecream import ic
@@ -38,9 +40,17 @@ class SAxesModel:
         self._x = np.linspace(self.x_min, self.x_max, self.n_points)
     
 class SAxes(SAxesModel):
-    axes: Optional[Axes] 
+    axes: Axes
     axes_variables: dict[str, float] 
+    _sfigure: "SFigure"
     
+    def __init__(self, figure: "SFigure", left: Size, bottom: Size, 
+                 *args, **kwargs):
+        self._sfigure = figure
+        #print("XXX", args, kwargs)
+        super().__init__(*args, **kwargs)
+        self.setup(left, bottom)
+        self._sfigure.add_axes(self)
     def get_offset_x_ax(self, dx, dy):
         ax = self.axes
         tr1 = ax.get_yaxis_transform()
@@ -57,12 +67,13 @@ class SAxes(SAxesModel):
         tx,ty = tr.transform((0,0))
         return tr.inverted().transform((tx+dx, ty+dy))
     
-    def setup(self, figure: Figure, left: Size, bottom: Size):
+    def setup(self, left: Size, bottom: Size):
+        figure = self._sfigure.figure
         trf = figure.dpi_scale_trans + figure.transFigure.inverted()
         aw, ah = trf.transform((self.width, self.height))
         al, ab = trf.transform((left, bottom))
         rect = (al, ab, aw, ah)
-        #ic(rect)
+        ic(rect)
         #ic(self)
         self.axes_variables = dict()
         self.axes = figure.add_axes(rect)
@@ -114,6 +125,7 @@ class SAxes(SAxesModel):
     
     def finalize(self):
         if self.show_legend:
+            print("XXX legend")
             self.axes.legend(**self.legend_options)
 
     def plot(self, *args, **kwargs):

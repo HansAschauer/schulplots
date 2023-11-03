@@ -40,10 +40,10 @@ class SFigureModel:
 class SFigure(SFigureModel):
     saxes: Iterable["SAxes"]
     figure: Optional[Figure]
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, f: Optional[Figure] = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.saxes = []
-        self.figure = None
+        self.set_figure(f)
     def set_figure(self, f: Optional[Figure] = None):
         if f is None:
             f = plt.figure()
@@ -63,13 +63,15 @@ class SFigure(SFigureModel):
         for y in yy:
             self.figure.add_artist(Line2D((x_min, x_max), (y,y), transform = self.figure.dpi_scale_trans, **kwargs))
         
-    def add_axes(self, axes: "SAxes", left: Size = 0, bottom: Size = 0):
-        axes.setup(self.figure, left, bottom)
+    def add_axes(self, axes: "SAxes"):
+        #axes.setup(self.figure, left, bottom)
         self.saxes.append(axes)
     
     def __enter__(self) -> "SFigure":
         return self
     def __exit__(self,exc_type, exc_val, exc_tb):
+        print("XXX in __exit__")
+        print(self.saxes)
         for sax in self.saxes:
             sax.finalize()
         if self.output_file is None:

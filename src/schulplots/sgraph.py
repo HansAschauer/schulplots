@@ -27,11 +27,11 @@ class SGraphModel:
     function: Union[str, list[str]]
     label: Optional[str] = None
     plot_args: dict[str, Any] = field(default_factory=dict)
+    discontinuities: list[Discontinuity] = field(default_factory=list)
     condition   : Optional[str] = None
     max_y: float = 100
     min_y: float = -100
     var_prefix:str = ""
-    discontinuities: list[Discontinuity] = field(default_factory=list)
     def __post_init__(self):
         if self.label is None:
             self.label = None
@@ -46,11 +46,14 @@ class SGraph(SGraphModel):
     _condition_code: CodeType
     _cond: Callable
     
-    def __init__(self, *args, **kwargs):
-        self._saxes = None
+    def __init__(self, saxes: SAxes, *args, **kwargs):
+        #print("XXX in SGraph.__init__", type(self))
+        self._saxes = saxes
         self._cond_array = None
         super().__init__(*args, **kwargs)
+        #print(self)
         self._current_color = "black"
+        self.set_saxes(saxes)
             
         
     def set_saxes(self, saxes: SAxes):

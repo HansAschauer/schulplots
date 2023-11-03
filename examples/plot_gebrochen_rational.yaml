@@ -20,6 +20,7 @@ axes_descriptors:
     label: $\dfrac{x^3-2x^2-11x+12}{4x²+4x-48}$
   #- function: (x**3 - 2*x**2 -11*x + 12)/(4*x**2 + 4*x -48)
   - function: 1/4*x -0.5
+    label: Asymptote
     plot_args: 
       ls: --
       alpha: 0.5

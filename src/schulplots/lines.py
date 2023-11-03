@@ -16,11 +16,14 @@ class VLineModel:
     y_min: float = 0
     y_max: float = 1
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.5))
+
 class VLine(VLineModel):
     _saxes: Optional[SAxes]
-    def __init__(self, *args, **kwargs):
-        self._saxes = None
+    def __init__(self, saxes: SAxes, *args, **kwargs):
+        self.set_saxes(saxes)
+        #print("XXX", args, kwargs)
         super().__init__(*args, **kwargs)
+        #print("YYYY")
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         if self.x != np.inf:
@@ -40,10 +43,11 @@ class VSpanModel:
     y_min: float = 0
     y_max: float = 1
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.3, lw=0))
+
 class VSpan(VSpanModel):
     _saxes: Optional[SAxes]
-    def __init__(self, *args, **kwargs):
-        self._saxes = None
+    def __init__(self, saxes: SAxes, *args, **kwargs):
+        self.set_saxes(saxes)
         super().__init__(*args, **kwargs)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
