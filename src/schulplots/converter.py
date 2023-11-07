@@ -5,6 +5,8 @@ try:
 except ImportError:  # Graceful fallback if IceCream isn't installed.
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
 
+from .utils.math_expression import MathExpression
+
 from .types import FigAction, Size
 if TYPE_CHECKING:
     from .saxes import SAxes
@@ -22,6 +24,9 @@ _converter2.register_unstructure_hook(Size, str)
 _converter2.register_structure_hook(Union[str, list[str]], structure_list_of_strings)
 _converter2.register_structure_hook(FigAction, lambda val, _: FigAction._member_map_[val])
 _converter2.register_unstructure_hook(FigAction, lambda s: s.name)
+_converter2.register_structure_hook(MathExpression, lambda val, _: MathExpression(val))
+_converter2.register_unstructure_hook(MathExpression, str)
+
 
 converter = make_converter(omit_if_default=True)
 converter.register_structure_hook(Size, lambda val, _: Size(val))
@@ -29,6 +34,8 @@ converter.register_unstructure_hook(Size, str)
 converter.register_structure_hook(Union[str, list[str]], structure_list_of_strings)
 converter.register_structure_hook(FigAction, lambda val, _: FigAction._member_map_[val])
 converter.register_unstructure_hook(FigAction, lambda s: s.name)
+converter.register_structure_hook(MathExpression, lambda val, _: MathExpression(val))
+converter.register_unstructure_hook(MathExpression, str)
 
 
 

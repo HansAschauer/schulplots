@@ -3,7 +3,7 @@ from typing import Optional, Any, ClassVar
 import numpy as np
 
 from .converter import register_model, register_impl
-
+from .utils.math_expression import MathExpression
 try:
     from icecream import ic
 except ImportError:  # Graceful fallback if IceCream isn't installed.
@@ -15,14 +15,14 @@ from .saxes import SAxes
 @dataclass
 class TextModel:
     class_id: ClassVar[str] = "Text"   
-    text: str = "" 
-    x: float = np.inf
-    x_var: str = ""
-    y: float = np.inf
-    y_var: str = ""
+    text: str
+    x: MathExpression
+    y: MathExpression
+    rotation: MathExpression = MathExpression(0)
     text_args: dict[str, Any] = field(default_factory=lambda: dict(zorder=100))
 @register_impl
 class Text(TextModel):
+    
     _saxes: SAxes
     def __init__(self, saxes: SAxes, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -30,17 +30,8 @@ class Text(TextModel):
         print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
-        if self.x != np.inf:
-            x = self.x
-        elif self.x_var: 
-            x = eval(self.x_var, {}, self._saxes.axes_variables)
-        else:
-            raise ValueError("set either x or x_var.")
-        if self.y != np.inf:
-            y = self.y
-        elif self.x_var: 
-            y = eval(self.y_var, {}, self._saxes.axes_variables)
-        else:
-            raise ValueError("set either y or y_var.")
-        self._saxes.axes.text(x,y, self.text, 
+        x = self.x.evaluate(self._saxes.axes_variables)
+        y = self.y.evaluate(self._saxes.axes_variables)
+        rotation = self.rotation.evaluate(self._saxes.axes_variables)
+        self._saxes.axes.text(x,y, self.text, rotation=rotation, 
                                  **self.text_args)

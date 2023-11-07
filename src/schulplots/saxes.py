@@ -75,7 +75,7 @@ class SAxes(SAxesModel):
         rect = (al, ab, aw, ah)
         ic(rect)
         #ic(self)
-        self.axes_variables = dict()
+        self.axes_variables = dict(pi=np.pi, e=np.e)
         self.axes = figure.add_axes(rect)
         self.axes.set_xlim(self.x_min, self.x_max)
         self.axes.set_ylim(self.y_min, self.y_max)

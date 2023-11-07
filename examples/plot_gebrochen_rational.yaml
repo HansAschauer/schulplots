@@ -37,21 +37,24 @@ axes_descriptors:
     plot_args: 
       ls: --
       alpha: 0.5
-  - type: HLine
-    y: 0.5
-  - type: VSpan
-    x0: 2
-    x1: 2.5
-  - type: HSpan
-    y0: -1
-    y1: -2
   - type: Text
-    x: 3
+    x: 2.8
     y: 3.5
-    text: $x^2 \int_a^b f(x)\,dx$
+    text: Asymptote bei $x=3$
+    rotation: 90
     text_args:
-      rotation: vertical
-      ha: center
+      rotation_mode: anchor
+      ha: left
+      color: black
+  - type: Text
+    x: 5
+    y: 1
+    text: schräge Asymptote
+    rotation: arctan(1/4) * 180 / pi
+    text_args:
+      rotation_mode: anchor
+      ha: left
+      color: black
 
 # (x-4)(x-1)(x+3)   (x²-5x+4)(x+3)   x³-2x²-11x+12
 # --------------- = -------------- = -------------

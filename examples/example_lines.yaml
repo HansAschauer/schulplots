@@ -1,0 +1,86 @@
+figure:
+  height: 8cm
+  width: 10cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 8cm
+    x_min: -4
+    y_min: -2
+    show_legend: false
+  bottom: 0.5 cm
+  left: 1cm
+  items:
+  # Arrows
+  - type: Arrow
+    x: -4
+    y: 3.5
+    dx: pi
+    dy: 0
+  - type: Arrow
+    x: -4
+    y: 3
+    dx: 1
+    dy: -0.3
+    width: 0.1
+    plot_args:
+      color: green
+
+  # HLine, VLine
+  - type: HLine
+    y: 2.5 
+    x_max: 0.75 # Bruchteil der Länge der x-Achse
+    plot_args:
+      color: black
+      alpha: 0.3
+  - type: VLine
+    x: -2 
+    y_max: 1.2 # Bruchteil der Länge der y-Achse
+    plot_args:
+      color: black
+      alpha: 0.3
+      clip_on: false # wird nicht am Ende des Koordinatensystems abgescnitten
+      linestyle: --
+  - type: VLine
+    x: -1.5 
+    x_max: 1.1 # Bruchteil der Länge der y-Achse
+    plot_args:
+      # dashes: Sequenz von ein/aus Längen
+      # hier ein SOS: ...---...  ...---... etc.
+      dashes: [1,2, 1,2, 1,2,  3,1, 3,1, 3,1,  1,2, 1,2, 1,5 ]
+      linewidth: 2
+
+  # HSpan, VSpan
+  - type: HSpan
+    y0: 2
+    y1: 1.5
+  - type: HSpan
+    y0: 1
+    y1: 0.5
+    plot_args:
+      facecolor: green
+      edgecolor: orange
+      linewidth: 1.5
+      alpha: 0.3
+  - type: VSpan
+    x0: 2
+    x1: 1.5
+    y_max: 0.8
+    y_min: 0.1
+    plot_args:
+      closed: true
+      alpha: 0.3
+      edgecolor: black
+  - type: VSpan
+    x0: 3.5
+    x1: 4
+    plot_args:
+      alpha: 1
+  - type: VSpan
+    x0: 2.5
+    x1: 3
+    plot_args:
+      alpha: 1
+      # höhere zorder wird später (darüber) gezeichnet
+      zorder: 200
+

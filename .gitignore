@@ -1,6 +1,7 @@
 __pycache__/
 *.__pycache__
 /site/
-images/*.png
+/images/*.png
 docs/images/
 *.pyc
+settings.json
