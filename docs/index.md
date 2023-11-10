@@ -11,35 +11,12 @@ Die Abbildung wird hierbei mit einer Beschreibungs-Datei beschrieben, die von `s
 Dieses Bild wird durch die folgende Beschreibung im YAML-Format erzeugt:
 
 ```yaml
-figure:
-  height: 8cm
-  width: 10cm
-axes_descriptors:
-- axes:
-    height: 6cm
-    width: 8cm
-    x_min: -3
-    y_min: -2
-  bottom: 1cm
-  left: 1cm
-  graphs:
-  - function: sin(x)
-    label: $\sin(x)$
-  areas:
-  - function:
-    - sin(x)
-    - 0*x
-    label: $A = \int_0^\pi \sin(x)\,dx$
-    condition: y1 >= y2
-    plot_args:
-      alpha: 0.3
-      color: red
-
+--8<-- "docs/input/plot_sinus.yaml"
 ```
 Die Beschreibungsdatei hat Haupt-Sektionen:
 1. `figure`: Diese Sektion enthält Informationen über die gesamte Abbildung. Im Beispiel werden die Höhe und die Breite der Abbildung angegeben.
-2. `axes_descriptors`: Diese Sektion enthält eine Beschreibung von Axen-Systemen und Graphen/Flächen, die in diese Achensysteme eingezeichnet werden sollen.
+2. `axes_descriptors`: Diese Sektion enthält eine Beschreibung von Axen-Systemen und Graphen/Flächen, die in diese Achsensysteme  eingezeichnet werden sollen.
 
-Es ist auch möglich, mehrere Achensysteme mit mehreren Graphen zu zeichen:
+Es ist auch möglich, mehrere Achsensysteme mit mehreren Graphen in eine Abbildung zu zeichnen:
 
 <img src="images/plot_sinus2.png" alt="Sinuskurve" width="500"/>

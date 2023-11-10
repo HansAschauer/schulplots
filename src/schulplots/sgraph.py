@@ -109,6 +109,8 @@ class SGraph(SGraphModel):
         for i, f in enumerate(self.function):
             y = f.evaluate(dict(x=self.x), 
                            self._saxes.axes_functions)
+            y = np.array(y, dtype=np.float_)
+            y = np.broadcast_to(y, self.x.shape).copy()
             y[y>self.max_y] = np.inf
             y[y<self.min_y] = -np.inf
             if self._cond_array is not None:

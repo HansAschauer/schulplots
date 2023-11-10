@@ -13,4 +13,12 @@ axes_descriptors:
   - type: Graph
     function: sin(x)
     label: $\sin(x)$
-    condition: -2 < x  and x < 4 and y < 0.5 # (1)!
+  - type: Area
+    function:
+    - sin(x)
+    - 0
+    label: $A = \int_0^\pi \sin(x)\,dx$
+    condition: y1 >= y2
+    plot_args:
+      alpha: 0.3
+      color: red

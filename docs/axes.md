@@ -48,7 +48,7 @@ Die `axes` Struktur besitzt folgende Attribute:
 
 
 ```yaml
-{!input/axes1.yaml!}
+--8<-- "docs/input/axes1.yaml"
 ```
 
 ## Zwei Achsensysteme in einer Zeichnung
@@ -57,7 +57,7 @@ Zwei Achsensysteme mit unterschiedlichen Einheiten in der selben Abbildung.
 <img src="../images/axes2.png" alt="Sinuskurve" width="600"/>
 
 ```yaml
-{!input/axes2.yaml!}
+--8<-- "docs/input/axes2.yaml"
 ```
 Beachte, dass im linken Achsensystem die Legende ausgeschaltet wurde
 (`show_legend: false`), wodurch das kleine, leere Quadrat verschwindet. Dieses ist die "leere" Legende.

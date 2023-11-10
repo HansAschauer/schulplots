@@ -3,18 +3,37 @@ site_url: https://schulplots.ch23.de
 nav:
   - Home: index.md
   - Abbildung: figure.md
-  - Achensystem: axes.md
+  - Achsensystem: axes.md
   - Graphen: graph.md
   - Flächen: area.md
   - Geraden: lines.md
   - Beschreibungsdatei: description_file.md
+  - Überblick der Items: items.md
 exclude_docs: |
   input/graph*.yaml
 use_directory_urls: false
 theme:
-  name: mkdocs
+  name: material
   locale: de
-  nav_style: dark
+  #nav_style: dark
+  features:
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate 
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
 markdown_extensions:
-    - markdown_include.include:
-        base_path: docs
+  - pymdownx.highlight:
+      anchor_linenums: true 
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

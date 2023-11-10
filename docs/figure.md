@@ -10,7 +10,7 @@ einem leeren, karierten Zeichenbereich.
 
 Dies wird mit folgender Beschreibung erreicht:
 ```yaml
-{!input/figure1.yaml!}
+--8<-- "docs/input/figure1.yaml"
 ```
 
 Die Breite und Höhe des Zeichenbereichs wird mit `width` und `height` angegeben.
@@ -57,5 +57,5 @@ explizit gesetzt werden.
 <img src="../images/figure2.png" alt="Sinuskurve" width="500"/>
 
 ```yaml
-{!input/figure2.yaml!}
+--8<-- "docs/input/figure2.yaml"
 ```

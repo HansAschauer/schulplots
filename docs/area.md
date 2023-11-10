@@ -51,7 +51,7 @@ Im linken Achsensystem wurde keine Bedingung angegeben -- es wird deshalb die ge
 <img src="../images/area1.png" alt="Sinuskurve" width="600"/>
 
 ```yaml
-{!input/area1.yaml!}
+--8<-- "docs/input/area1.yaml"
 ```
 Dieses Beispiel lässt sich auch kürzer schreiben, unter Verwendung von YAML
 Anchors. Das sind symbolische Namen, die an einer Stelle definiert werden
@@ -61,5 +61,5 @@ Attribute selektiv erneut angegeben werden, wodurch diese mit den neuen Werten
 ist, sondern eine Eigenschaft der YAML Sprache.
 
 ```yaml
-{!input/area_template.yaml!}
+--8<-- "docs/input/area_template.yaml"
 ```

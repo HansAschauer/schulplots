@@ -39,7 +39,7 @@ Attribute der `hline` Struktur:
 <img src="../images/line1.png" alt="Sinuskurve" width="500"/>
 
 ```yaml
-{!input/line1.yaml!}
+--8<-- "docs/input/line1.yaml"
 ```
 
 
@@ -48,12 +48,12 @@ Attribute der `hline` Struktur:
 <img src="../images/line3.png" alt="Sinuskurve" width="500"/>
 
 ```yaml
-{!input/line3.yaml!}
+--8<-- "docs/input/line3.yaml"
 ```
 
 ## Verwendung von Variablen
 <img src="../images/line2.png" alt="Sinuskurve" width="500"/>
 
 ```yaml
-{!input/line2.yaml!}
+--8<-- "docs/input/line2.yaml"
 ```

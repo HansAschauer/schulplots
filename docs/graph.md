@@ -14,16 +14,9 @@ Die `graph` Struktur besitzt folgende Attribute:
 | `min_y` | Werte kleiner als `min_x` werden als unendlich angesehen und nicht gezeichnet. | -100 |
 | `discontinuities` | Liste von Unstetigkeitsstellen, s.u. | `[]` |
 
-## Definitionslücken und Unstetigkeitsstellen
-Unstetigkeitsstellen werden durch folgende Struktur beschrieben:
 
-| Attribut | Beschreibung | Default |
-| -- | -- | -- |
-| `x0` | Stelle (x-Wert) der Unstetigkeit |   |
-| `belongs_to`  | Welchen Wert nimmt die Funktion an der Sprungstelle an? Mögliche Angaben sind `x>x0` (Funktion rechts von der Sprungstelle), `x<x0` (Funktion links von der Sprungstelle), `none` (Definitionslücke). Diese Werte müssen genau so angegeben werden. |   |
-
-Eine Definitionslücke kann auch in einer eigentlich stetigen Funktion gezeichnet werden.
-
+### Weitere Einstellungen: `plot_args`
+Im Abschnitt `plot_args` kann man das Aussehen des Funktionsgraphen sehr detailliert einstellen. Die vollständige Liste der Parameter ist in der [matplotlib Dokumentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.lines.Line2D.html#matplotlib.lines.Line2D) zu finden.
 ```yaml
 ...
   graphs:
@@ -34,6 +27,18 @@ Eine Definitionslücke kann auch in einer eigentlich stetigen Funktion gezeichne
     label: $\sin(4x)$
 ...
 ```
+
+
+
+## Definitionslücken und Unstetigkeitsstellen
+Unstetigkeitsstellen werden durch folgende Struktur beschrieben:
+
+| Attribut | Beschreibung | Default |
+| -- | -- | -- |
+| `x0` | Stelle (x-Wert) der Unstetigkeit |   |
+| `belongs_to`  | Welchen Wert nimmt die Funktion an der Sprungstelle an? Mögliche Angaben sind `x>x0` (Funktion rechts von der Sprungstelle), `x<x0` (Funktion links von der Sprungstelle), `none` (Definitionslücke). Diese Werte müssen genau so angegeben werden. |   |
+
+Eine Definitionslücke kann auch in einer eigentlich stetigen Funktion gezeichnet werden.
 
 ## Funktionsterme
 Aus technischer Sicht sind Funktionsterme Python-Ausdrücke (expressions), in
@@ -60,7 +65,7 @@ Praktisch bedeutet das, dass folgende Ausdrücke gültig sind:
 
 
 ```yaml
-{!input/graph1.yaml!}
+--8<-- "docs/input/graph1.yaml"
 ```
 
 ## Bedingungen (`condition`)
@@ -85,15 +90,20 @@ Beispiele für `condition`:
 #### Beispiel 2:
 In diesem Beispiel wird die Bedingung `-2 < x and x < 4 and y < 0.5` gesetzt, d.h. der Graph wird an den x-Stellen zwischen -2 und 4 gezeichnet, sofern der Funktionswert y kleiner als 0.5 ist.
 
+
+
 <img src="../images/graph2.png" alt="Sinuskurve" width="500"/>
 
 
-```yaml
-{!input/graph2.yaml!}
+``` yaml linenums="1" hl_lines="16"
+--8<-- "docs/input/graph2.yaml"
 ```
 
+1.  Hier wird die Bedingung definiert.
+
+
 ## Weitere Beispiele
-#### Beispiel 3  
+#### Beispiel 3: Unstetigkeitsstellen
 Dieses Beispiel zeigt die Verwendung von Unstetigkeitsstellen, am Beispiel der Stufenfunktion (`heaviside`). Es wird drei mal die selbe Funktion gezeichnet, wobei die Unstetigkeitsstelle mit dem jeweils angegebenen Wert für das Attribut `belongs_to` konfiguriert wurde.
 
 <img src="../images/graph4.png" alt="Sinuskurve" width="500"/>
@@ -118,7 +128,7 @@ Dieses Beispiel zeigt die Verwendung von Unstetigkeitsstellen, am Beispiel der S
 ```
 
 
-#### Beispiel 4:
+#### Beispiel 4: `maximum` und `heavyside`
 
 Dieses Beispiel zeigt die Funktionen `maximum` und `heavyside`. 
 
@@ -135,25 +145,21 @@ Praktisch bedeutet das, dass so der jeweils weiter oben liegende Graph zweier Fu
   
 ```
 
-Die `heavyside` Funktion ist auch als Stufenfunktion bekannt und  eignet sich dazu,  abschnittsweise definierte Funktionen zu definieren. 
+Die `heavyside` Funktion ist auch als Stufenfunktion bekannt und eignet sich dazu,  abschnittsweise definierte Funktionen zu definieren. 
 
 Allgemein kann man eine Funktion 
-```
- 
-        / 
-        | f1(x) für x > x0
-f(x) = <
-        | f2(x) für x <= x0
-        \
-```
-schreiben als f(x) = heavyside((x-x0), 0) * f1(x)  + heavyside((x0-x), 0) * f2(x).
+
+$$ 
+  f(x) = \left\{f_1(x) \quad \mathrm{für}\quad  x > x_0 \atop f_2(x) \quad \mathrm{für}\quad  x \le x_0  \right.
+$$
+
+schreiben als $f(x) = \mathrm{heavyside}((x-x_0), 0) \cdot f_1(x)  + \mathrm{heavyside}((x_0-x), 0) \cdot f_2(x)$.
 Beachte, dass das zweite Argument der heavyside-Funktion praktisch irrelevant ist, wenn man nur die Funktion plotten will.
 
 Der rechte Graph setzt explizit die Unstetigkeitsstelle x=-1. In der Beschreibungsdatei sieht das so aus:
-```yaml
+``` yaml linenums="1" hl_lines="4"
   ...
   items:
-  # Das ist der interessante Graph
   - type: Graph
     function: heaviside(x+1,0) * 2*sin(x) + heaviside(-1-x,1) * 2*cos(x)
     discontinuities: 
@@ -169,5 +175,5 @@ Verhalten. Die anderen Graphen sind nur gezeichnet, um den weiteren Verlauf der
 zugrundeliegenden Graphen anzudeuten.
 
 ```yaml
-{!input/graph3.yaml!}
+--8<-- "docs/input/graph3.yaml"
 ```
