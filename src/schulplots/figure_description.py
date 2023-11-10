@@ -12,7 +12,8 @@ from .sgraph import SGraphModel , FillBetween, SGraph
 from .lines import VLineModel, VSpanModel, VLine, VSpan
 from .types import Size
 from .sfigure import SFigure
-
+from .functions import SFunction
+from .utils.math_expression import MathExpression
 from .converter import AxesAddable, impl_for_type
 
 def to_dict(datainstance:Any) -> dict:
@@ -27,13 +28,17 @@ class AxesWithGraphs:
     areas: list[SGraphModel] = field(default_factory=list)
     vlines: list[VLineModel] = field(default_factory=list)
     vspans: list[VSpanModel] = field(default_factory=list)
+    functions: dict[str, MathExpression] = field(default_factory=dict)
     items: list[AxesAddable] = field(default_factory=list)
     left: Size = 0
     bottom: Size = 0
     templates: dict = field(default_factory=dict)
     
     def setup(self, saxes: SAxes):
-        
+        for name, func in self.functions.items():
+            SFunction(saxes, function=func, name=name)
+        for a in self.items:
+            impl_for_type(a.class_id)(saxes, **to_dict(a))
         for g in self.graphs:
             SGraph(saxes, **to_dict(g))
             #g.set_saxes(self.axes)
@@ -47,9 +52,6 @@ class AxesWithGraphs:
         for a in self.vspans:
             VSpan(saxes, **to_dict(a))
             #a.set_saxes(self.axes)
-        for a in self.items:
-            print("XXX", type(a), impl_for_type(a.class_id))
-            impl_for_type(a.class_id)(saxes, **to_dict(a))
 
 @dataclass
 class FigureDescription:

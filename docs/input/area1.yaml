@@ -10,11 +10,12 @@ axes_descriptors:
     show_legend: false
   bottom: 1cm
   left: 1cm
-  graphs:
-  - function: sin(x)
-  - function: 0.25*x**2
-  areas:
-  - &my_area
+  items:
+  - type: Graph
+    function: sin(x)
+  - type: Graph
+    function: 0.25*x**2
+  - type: Area
     function:
     - sin(x)
     - 0.25*x**2
@@ -29,11 +30,13 @@ axes_descriptors:
     show_legend: false
   bottom: 1cm
   left: 7cm
-  graphs:
-  - function: sin(x)
-  - function: 0.25*x**2
-  areas:
-  - function:
+  items:
+  - type: Graph
+    function: sin(x)
+  - type: Graph
+    function: 0.25*x**2
+  - type: Area
+    function:
     - sin(x)
     - 0.25*x**2
     plot_args:

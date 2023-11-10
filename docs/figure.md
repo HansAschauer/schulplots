@@ -8,12 +8,9 @@ einem leeren, karierten Zeichenbereich.
 
 <img src="../images/figure1.png" alt="Sinuskurve" width="500"/>
 
-Dies wird mit folgener Beschreibung erreicht:
+Dies wird mit folgender Beschreibung erreicht:
 ```yaml
-figure:
-  height: 8cm
-  width: 10cm
-axes_descriptors: []
+{!input/figure1.yaml!}
 ```
 
 Die Breite und Höhe des Zeichenbereichs wird mit `width` und `height` angegeben.
@@ -24,12 +21,12 @@ Einheit wird "inch" als Längeneinheit angenommen. Erlaubte Längeneinheiten sin
 Zur generellen Struktur der Beschreibungsdatei siehe [diese
 Seite](description_file.md).
 
-Neben `widht`und `height` gibt es noch weitere Attribute der `figure` Umgebung: 
+Neben `width`und `height` gibt es noch weitere Attribute der `figure` Umgebung: 
 
 
 | Attribut | Beschreibung | Default |
 | ----------- | ----------- | --|
-| `widht`        | Breite der Abbildung |  21.0cm  |
+| `width`        | Breite der Abbildung |  21.0cm  |
 | `height`       | Höhe der Abbildung   |  29.7cm  |
 | `grid`         | Größe der Karos      |   0.5cm |  
 | `grid_options` | Einstellungen zur Darstellung des Karo |  (1)  |
@@ -46,7 +43,7 @@ erwarten.
 
 *Achtung*: Sofern `grid_options` angegeben werden, werden die Voreinstellungen,
 insbesondere für `alpha` und `linewidth`, überschrieben, und müssen ggf.
-explizit gesetz werden. 
+explizit gesetzt werden. 
 
 | Eigenschaft | Beschreibung | Default | 
 | --| --| --| 
@@ -60,13 +57,5 @@ explizit gesetz werden.
 <img src="../images/figure2.png" alt="Sinuskurve" width="500"/>
 
 ```yaml
-figure:
-  height: 8cm
-  width: 10cm
-  grid: 7mm
-  grid_options:
-    color: blue
-    alpha: 0.2
-    linewidth: 0.5
-axes_descriptors: []
+{!input/figure2.yaml!}
 ```

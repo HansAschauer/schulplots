@@ -11,11 +11,15 @@ axes_descriptors:
     show_legend: false
   bottom: 1cm
   left: 1cm
-  graphs:
-  - function: sin(x)
-  - function: 0.25*x**2
-  areas:
+  items: &my_items
+  - &my_g0
+    type: Graph
+    function: sin(x)
+  - &my_g1
+    type: Graph
+    function: 0.25*x**2
   - &my_area
+    type: Area    
     function:
     - sin(x)
     - 0.25*x**2
@@ -24,6 +28,8 @@ axes_descriptors:
       color: green
 - <<: *my_axes
   left: 7cm
-  areas:
+  items:
+  - <<: *my_g0
+  - <<: *my_g1
   - <<: *my_area
     condition: y1 >= y2

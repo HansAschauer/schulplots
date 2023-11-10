@@ -1,0 +1,36 @@
+figure:
+  height: 10cm
+  width: 12cm
+  #output_file: plot.pdf
+axes_descriptors: 
+- axes:
+    height: 8cm
+    width: 10cm
+    x_min: -3
+    y_min: -2      
+    legend_options:
+      loc: upper right
+  bottom: 1cm
+  left: 1cm
+  functions:
+    f: 2*sin(2*x)
+    g: 0.5*x^2
+  items:
+  - type: Graph
+    function: f(x)
+    label: $2\sin(2x)$
+  - type: Graph
+    function: g(x)
+    label: $\dfrac{1}{2}x^2$
+  - type: Area
+    function:
+    - f(x)
+    - g(x)
+    label: A
+    condition: y1 >= y2
+    plot_args:
+      alpha: 0.3
+      color: red
+  - type: VLine
+    x: sect_x_1
+  

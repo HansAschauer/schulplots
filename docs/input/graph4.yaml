@@ -9,8 +9,9 @@ axes_descriptors:
     y_min: -2
   bottom: 1cm
   left: 1cm
-  graphs:
-  - function: heaviside(x,0)
+  items:
+  - type: Graph
+    function: heaviside(x,0)
     label: x<x0
     discontinuities:
     - x0: 0
@@ -35,8 +36,9 @@ axes_descriptors:
     y_min: -2
   bottom: 1cm
   left: 7cm
-  graphs:
-  - function: heaviside(x,0)
+  items:
+  - type: Graph
+    function: heaviside(x,0)
     label: none
     discontinuities:
     - x0: 0

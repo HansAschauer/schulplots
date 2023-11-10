@@ -9,6 +9,7 @@ axes_descriptors:
     y_min: -2
   bottom: 1cm
   left: 1cm
-  vspans:
-  - x0: -1
+  items:
+  - type: VSpan
+    x0: -1
     x1: 1

@@ -10,16 +10,19 @@ axes_descriptors:
     show_legend: true
   bottom: 1cm
   left: 1cm
-  graphs:
+  items:
   # Das ist der interessante Graph
-  - function: maximum(sin(4*x), sin(2*x))
+  - type: Graph
+    function: maximum(sin(4*x), sin(2*x))
     label: $f_1$
-  - function: sin(4*x)
+  - type: Graph
+    function: sin(4*x)
     plot_args:
       color: black
       alpha: 0.2
     label: 
-  - function: sin(2*x)
+  - type: Graph
+    function: sin(2*x)
     plot_args:
       color: black
       alpha: 0.2
@@ -32,18 +35,21 @@ axes_descriptors:
       loc: upper left
   bottom: 1cm
   left: 7cm
-  graphs:
+  items:
   # Das ist der interessante Graph
-  - function: heaviside(x+1,0) * 2*sin(x) + heaviside(-1-x,1) * 2*cos(x)
+  - type: Graph
+    function: heaviside(x+1,0) * 2*sin(x) + heaviside(-1-x,1) * 2*cos(x)
     label: $f_2$
     discontinuities: 
     - x0: -1
       belongs_to: x>x0
-  - function: 2*sin(x)
+  - type: Graph
+    function: 2*sin(x)
     plot_args:
       color: black
       alpha: 0.2
-  - function: 2*cos(x)
+  - type: Graph
+    function: 2*cos(x)
     plot_args:
       color: black
       alpha: 0.2

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional, Any, TYPE_CHECKING
+from typing import Optional, Any, TYPE_CHECKING, Callable
 
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
@@ -42,6 +42,7 @@ class SAxesModel:
 class SAxes(SAxesModel):
     axes: Axes
     axes_variables: dict[str, float] 
+    axes_functions: dict[str, Callable]
     _sfigure: "SFigure"
     
     def __init__(self, figure: "SFigure", left: Size, bottom: Size, 
@@ -49,6 +50,8 @@ class SAxes(SAxesModel):
         self._sfigure = figure
         #print("XXX", args, kwargs)
         super().__init__(*args, **kwargs)
+        self.axes_variables = dict(pi=np.pi, e=np.e)
+        self.axes_functions = {}
         self.setup(left, bottom)
         self._sfigure.add_axes(self)
     def get_offset_x_ax(self, dx, dy):
@@ -75,7 +78,6 @@ class SAxes(SAxesModel):
         rect = (al, ab, aw, ah)
         ic(rect)
         #ic(self)
-        self.axes_variables = dict(pi=np.pi, e=np.e)
         self.axes = figure.add_axes(rect)
         self.axes.set_xlim(self.x_min, self.x_max)
         self.axes.set_ylim(self.y_min, self.y_max)
@@ -125,8 +127,8 @@ class SAxes(SAxesModel):
     
     def finalize(self):
         if self.show_legend:
-            #print("XXX legend")
-            self.axes.legend(**self.legend_options)
+            legend=self.axes.legend(**self.legend_options)
+            legend.set_zorder(30)
 
     def plot(self, *args, **kwargs):
         return self.axes.plot(*args, **kwargs)

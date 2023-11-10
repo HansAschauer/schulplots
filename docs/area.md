@@ -33,9 +33,8 @@ Diese beziehen sich auf die beiden Funktionen, die im `function` Attribut
 festgelegt wurden. 
 
 Genau wie bei Graphen stehen die Vergleichs-Operatoren `<`, `>`, `<=`, `>=`,
-`==` (gleich), `!=` (ungleich) zur Verfügung. Einzelne Vergleiche können mit `&`
-(und), `|` (oder) sowie mit `^` (exklusiv oder) verknüpft werden. Dabei müssen
-die Vergleichs-Operationen in Klammern gesetzt werden.  
+`==` (gleich), `!=` (ungleich) zur Verfügung. Einzelne Vergleiche können mit
+`and` (und), `or` (oder) sowie mit `xor` (exklusiv oder) verknüpft werden.    
 
 
 
@@ -47,89 +46,20 @@ Beispiele für `condition`:
 * `y<x`: alle Punkte unterhalb der Geraden y=x
 
 #### Beispiel 1:
-Im linken Achsensystem wurde keine Bedinung angegeben -- es wird deshalb die gesamte von den beiden Funktionsgraphen eingeschlossene Fläche gezeichnet. Rechts wurde als Bedingung `y1 >= y2` angegeben, y1 >= y2so dass nur der Teil der Fläche dargestellt wird, in der die blaue Kurve oberhalb der orangenen liegt.
+Im linken Achsensystem wurde keine Bedingung angegeben -- es wird deshalb die gesamte von den beiden Funktionsgraphen eingeschlossene Fläche gezeichnet. Rechts wurde als Bedingung `y1 >= y2` angegeben, y1 >= y2so dass nur der Teil der Fläche dargestellt wird, in der die blaue Kurve oberhalb der orangenen liegt.
 
 <img src="../images/area1.png" alt="Sinuskurve" width="600"/>
 
 ```yaml
-figure:
-  height: 8cm
-  width: 12cm
-axes_descriptors:
-- axes: 
-    height: 6cm
-    width: 4cm
-    x_min: -1
-    y_min: -2
-    show_legend: false
-  bottom: 1cm
-  left: 1cm
-  graphs:
-  - function: sin(x)
-  - function: 0.25*x**2
-  areas:
-  - &my_area
-    function:
-    - sin(x)
-    - 0.25*x**2
-    plot_args:
-      alpha: 0.3
-      color: green
-- axes: 
-    height: 6cm
-    width: 4cm
-    x_min: -1
-    y_min: -2
-    show_legend: false
-  bottom: 1cm
-  left: 7cm
-  graphs:
-  - function: sin(x)
-  - function: 0.25*x**2
-  areas:
-  - function:
-    - sin(x)
-    - 0.25*x**2
-    plot_args:
-      alpha: 0.3
-      color: green
-    condition: y1 >= y2
+{!input/area1.yaml!}
 ```
 Dieses Beispiel lässt sich auch kürzer schreiben, unter Verwendung von YAML
 Anchors. Das sind symbolische Namen, die an einer Stelle definiert werden
 (`&my_axes`), und später wiederverwendet werden (`<<: *my_axes`). Dabei können
 Attribute selektiv erneut angegeben werden, wodurch diese mit den neuen Werten
-überschrieven werden. Beachte, dass dies keine Besonderheit von `schulplots`
+überschrieben werden. Beachte, dass dies keine Besonderheit von `schulplots`
 ist, sondern eine Eigenschaft der YAML Sprache.
 
 ```yaml
-figure:
-  height: 8cm
-  width: 12cm
-axes_descriptors:
-- &my_axes
-  axes: 
-    height: 6cm
-    width: 4cm
-    x_min: -1
-    y_min: -2
-    show_legend: false
-  bottom: 1cm
-  left: 1cm
-  graphs:
-  - function: sin(x)
-  - function: 0.25*x**2
-  areas:
-  - &my_area
-    function:
-    - sin(x)
-    - 0.25*x**2
-    plot_args:
-      alpha: 0.3
-      color: green
-- <<: *my_axes
-  left: 7cm
-  areas:
-  - <<: *my_area
-    condition: y1 >= y2
+{!input/area_template.yaml!}
 ```

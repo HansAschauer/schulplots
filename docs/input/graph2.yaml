@@ -9,7 +9,8 @@ axes_descriptors:
     y_min: -2
   bottom: 1cm
   left: 1cm
-  graphs:
-  - function: sin(x)
+  items:
+  - type: Graph
+    function: sin(x)
     label: $\sin(x)$
-    condition: (-2 < x) & (x < 4) & (y<0.5)
+    condition: -2 < x  and x < 4 and y < 0.5

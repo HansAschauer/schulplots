@@ -13,11 +13,13 @@ class MathExpression(str):
         self._evaluated = None
         self.value = s
         
-    def evaluate(self, vars: dict[str, Any]| None = None, force_reeval=False):
+    def evaluate(self, vars: dict[str, Any]| None = None, 
+                 functions: dict[str, Any]| None = None, 
+                 force_reeval=False):
         if vars is None:
             vars = {}
         if self._evaluated is None or force_reeval:
-            self._evaluated = parser.evaluate_expression(self, vars)
+            self._evaluated = parser.evaluate_expression(self, vars, functions)
         return self._evaluated
 
 # %%

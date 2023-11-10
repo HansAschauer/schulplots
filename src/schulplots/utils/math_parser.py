@@ -38,12 +38,23 @@ opn = {
     "*": operator.mul,
     "/": operator.truediv,
     "^": operator.pow,
+    "and": operator.and_,
+    "or": operator.or_,
+    "xor": operator.xor,
+    "not": operator.not_,
+    "~": operator.not_,
+    "<=": operator.le,
+    "<": operator.lt,
+    ">=": operator.ge,
+    ">": operator.gt,
+    "==": operator.eq,
+    "!=": operator.ne,
 }
 
 # NumPy ufuncs with one argument
 fn = {key: val for (key, val) in np.__dict__.items() 
       if isinstance(val, np.ufunc) 
-      if "e->e" in val.types}
+      if ("e->e" in val.types) or ("ee->e" in val.types)}
     
     
     
@@ -61,6 +72,12 @@ class MathParser:
         for t in toks:
             if t == "-":
                 self.exprStack.append("unary -")
+            else:
+                break
+    def push_unary_not(self, toks):
+        for t in toks:
+            if t in ["~", "not"]:
+                self.exprStack.append("unary not")
             else:
                 break
             
@@ -91,13 +108,19 @@ class MathParser:
             ident = Word(alphas, alphanums + "_$")
 
             plus, minus, mult, div = map(Literal, "+-*/")
+            le, less, ge, greater, equal, nequal = map(Literal, ["<=","<",">=",">","=","!="])
+            and_, or_, xor, not_, not_alt = map(Literal, ["and", "or", "xor", "not", "~"])
             lpar, rpar = map(Suppress, "()")
+            logicop = and_ | or_ | xor 
+            compop = le | less | ge | greater | equal | nequal 
             addop = plus | minus
+            notop = not_ | not_alt
             multop = mult | div
             expop = Literal("^") | Literal("**")
 
-            expr = Forward()
-            expr_list = delimitedList(Group(expr))
+            logicexpr = Forward()
+            compexpr = Forward()
+            expr_list = delimitedList(Group(logicexpr)) 
             # add parse action that replaces the function identifier with a (name, number of args) tuple
             def insert_fn_argcount_tuple(t):
                 fn = t.pop(0)
@@ -108,10 +131,10 @@ class MathParser:
                 insert_fn_argcount_tuple
             )
             atom = (
-                addop[...]
+                addop[...] 
                 + (
                     (fn_call | pi | e | fnumber | ident).setParseAction(self.push_first)
-                    | Group(lpar + expr + rpar)
+                    | Group(lpar + logicexpr + rpar)
                 )
             ).setParseAction(self.push_unary_minus)
 
@@ -120,103 +143,47 @@ class MathParser:
             factor = Forward()
             factor <<= atom + (expop + factor).setParseAction(self.push_first)[...]
             term = factor + (multop + factor).setParseAction(self.push_first)[...]
-            expr <<= term + (addop + term).setParseAction(self.push_first)[...]
-            self.bnf = expr
-
-    def init_BNF_(self):
-        """
-        expop   :: '^'
-        multop  :: '*' | '/'
-        addop   :: '+' | '-'
-        integer :: ['+' | '-'] '0'..'9'+
-        atom    :: PI | E | real | fn '(' expr ')' | '(' expr ')'
-        factor  :: atom [ expop factor ]*
-        term    :: factor [ multop factor ]*
-        expr    :: term [ addop term ]*
-        """
-        if self.bnf is None:
-            # use CaselessKeyword for e and pi, to avoid accidentally matching
-            # functions that start with 'e' or 'pi' (such as 'exp'); Keyword
-            # and CaselessKeyword only match whole words
-            e = CaselessKeyword("E")
-            pi = CaselessKeyword("PI")
-            # fnumber = Combine(Word("+-"+nums, nums) +
-            #                    Optional("." + Optional(Word(nums))) +
-            #                    Optional(e + Word("+-"+nums, nums)))
-            # or use provided pyparsing_common.number, but convert back to str:
-            # fnumber = ppc.number().addParseAction(lambda t: str(t[0]))
-            fnumber = Regex(r"[+-]?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?")
-            ident = Word(alphas, alphanums + "_$")
-
-            plus, minus, mult, div = map(Literal, "+-*/")
-            lpar, rpar = map(Suppress, "()")
-            addop = plus | minus
-            multop = mult | div
-            expop = Literal("^") | Literal("**")
-
-            expr = Forward()
-            expr_list = delimitedList(Group(expr))
-            # add parse action that replaces the function identifier with a (name, number of args) tuple
-            def insert_fn_argcount_tuple(t):
-                fn = t.pop(0)
-                num_args = len(t[0])
-                t.insert(0, (fn, num_args))
-
-            fn_call = (ident + lpar - Group(expr_list) + rpar).setParseAction(
-                insert_fn_argcount_tuple
-            )
-            
-            atom_inner = (fn_call | pi | e | fnumber | ident)
-            atom_inner.setParseAction(self.push_first)
-            
-            atom = (
-                addop[...]
-                + (
-                    atom_inner
-                    | Group(lpar + expr + rpar)
-                )
-            )
-
-            # by defining exponentiation as "atom [ ^ factor ]..." instead of "atom [ ^ atom ]...", we get right-to-left
-            # exponents, instead of left-to-right that is, 2^3^2 = 2^(3^2), not (2^3)^2.
-            factor = Forward()
-            expop_factor = expop + factor
-            factor <<= atom + expop_factor[...]
-            multop_factor = multop + factor
-            term = factor + multop_factor[...]
-            addop_term = addop + term
-            expr <<= term + addop_term[...]
-
-            atom.setParseAction(self.push_unary_minus)
-            expop_factor.setParseAction(self.push_first)
-            multop_factor.setParseAction(self.push_first)
-            addop_term.setParseAction(self.push_first)
-            self.bnf = expr
+            expr = term + (addop + term).setParseAction(self.push_first)[...]
+            compexpr  = (
+                notop[...] + 
+                expr + (compop + expr).setParseAction(self.push_first)[...]
+            ).setParseAction(self.push_unary_not)
+            logicexpr <<= compexpr + (logicop + compexpr).setParseAction(self.push_first)[...]
+            self.bnf = logicexpr
 
 
 
 
-    def evaluate_stack(self, s, var_dict: dict[str, Any]| None = None):
+    @staticmethod
+    def evaluate_stack(s, var_dict: dict[str, Any]| None = None,
+                       func_dict: dict[str, Any]| None = None):
         if var_dict is None:
             var_dict = dict()
+        if func_dict is None:
+            func_dict = fn
+        else: 
+            func_dict = func_dict.copy()
+            func_dict.update(fn)
         op, num_args = s.pop(), 0
         if isinstance(op, tuple):
             op, num_args = op
         if op == "unary -":
-            return -self.evaluate_stack(s, var_dict)
+            return -MathParser.evaluate_stack(s, var_dict)
+        if op == "unary not":
+            return ~ MathParser.evaluate_stack(s, var_dict)
         if op in opn:
             # note: operands are pushed onto the stack in reverse order
-            op2 = self.evaluate_stack(s, var_dict)
-            op1 = self.evaluate_stack(s, var_dict)
+            op2 = MathParser.evaluate_stack(s, var_dict)
+            op1 = MathParser.evaluate_stack(s, var_dict)
             return opn[op](op1, op2)
         elif op.lower() == "pi":
             return math.pi  # 3.1415926535
         elif op.lower() == "e":
             return math.e  # 2.718281828
-        elif op in fn:
+        elif op in func_dict:
             # note: args are pushed onto the stack in reverse order
-            args = reversed([self.evaluate_stack(s, var_dict) for _ in range(num_args)])
-            return fn[op](*args)
+            args = reversed([MathParser.evaluate_stack(s, var_dict) for _ in range(num_args)])
+            return func_dict[op](*args)
         elif op.isidentifier():
             try:
                 return var_dict[op]
@@ -230,7 +197,22 @@ class MathParser:
                 return int(op)
             except ValueError:
                 return float(op)
-    def evaluate_expression(self, s: str, var_dict:dict[str, Any]| None = None):
+    def compile_expression(self, s: str):
+        self.exprStack[:] = []
+        self.results = self.bnf.parseString(s, parseAll=True)
+        return self.exprStack[:]
+    def evaluate_compiled_expression(self, 
+                                     expr_stack, 
+                                     var_dict:dict[str, Any]| None = None,
+                                     func_dict:dict[str, Any]| None = None):
+        return self.evaluate_stack(expr_stack[:], var_dict, func_dict)
+    def evaluate_expression(self, s: str, 
+                            var_dict:dict[str, Any]| None = None,
+                             func_dict:dict[str, Any]| None = None):
+        stack = self.compile_expression(s)
+        return self.evaluate_compiled_expression(stack, var_dict, func_dict)
+    def evaluate_expression_(self, s: str, 
+                             var_dict:dict[str, Any]| None = None):
         self.exprStack[:] = []
         self.results = self.bnf.parseString(s, parseAll=True)
         val = self.evaluate_stack(self.exprStack[:], var_dict)

@@ -17,25 +17,32 @@ def structure_list_of_strings(value, _):
     if isinstance(value, str):
         value = [value]
     return value
+def structure_list_of_math_expression(value, _):
+    if isinstance(value, str):
+        value = [value]
+    value = [MathExpression(s) for s in value]
+    return value
 
 _converter2 = make_converter(omit_if_default=True)
 _converter2.register_structure_hook(Size, lambda val, _: Size(val))
 _converter2.register_unstructure_hook(Size, str)
 _converter2.register_structure_hook(Union[str, list[str]], structure_list_of_strings)
-_converter2.register_structure_hook(FigAction, lambda val, _: FigAction._member_map_[val])
-_converter2.register_unstructure_hook(FigAction, lambda s: s.name)
 _converter2.register_structure_hook(MathExpression, lambda val, _: MathExpression(val))
 _converter2.register_unstructure_hook(MathExpression, str)
+_converter2.register_structure_hook(Union[MathExpression, list[MathExpression]], structure_list_of_math_expression)
+_converter2.register_structure_hook(FigAction, lambda val, _: FigAction._member_map_[val])
+_converter2.register_unstructure_hook(FigAction, lambda s: s.name)
 
 
 converter = make_converter(omit_if_default=True)
 converter.register_structure_hook(Size, lambda val, _: Size(val))
 converter.register_unstructure_hook(Size, str)
 converter.register_structure_hook(Union[str, list[str]], structure_list_of_strings)
-converter.register_structure_hook(FigAction, lambda val, _: FigAction._member_map_[val])
-converter.register_unstructure_hook(FigAction, lambda s: s.name)
 converter.register_structure_hook(MathExpression, lambda val, _: MathExpression(val))
 converter.register_unstructure_hook(MathExpression, str)
+converter.register_structure_hook(Union[MathExpression, list[MathExpression]], structure_list_of_math_expression)
+converter.register_structure_hook(FigAction, lambda val, _: FigAction._member_map_[val])
+converter.register_unstructure_hook(FigAction, lambda s: s.name)
 
 
 

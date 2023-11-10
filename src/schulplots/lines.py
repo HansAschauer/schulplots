@@ -26,7 +26,6 @@ class VLine(VLineModel):
     def __init__(self, saxes: SAxes, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_saxes(saxes)
-        print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         x = self.x.evaluate(self._saxes.axes_variables)
@@ -46,7 +45,6 @@ class HLine(HLineModel):
     def __init__(self, saxes: SAxes, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_saxes(saxes)
-        print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         y = self.y.evaluate(self._saxes.axes_variables)
@@ -56,8 +54,8 @@ class HLine(HLineModel):
 @dataclass
 class VSpanModel:
     class_id: ClassVar[str] = "VSpan"    
-    x0: MathExpression = 0
-    x1: MathExpression = 0
+    x0: MathExpression = MathExpression(0)
+    x1: MathExpression = MathExpression(0)
     y_min: float = 0
     y_max: float = 1
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.3, lw=0))
@@ -68,7 +66,6 @@ class VSpan(VSpanModel):
     def __init__(self, saxes: SAxes, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_saxes(saxes)
-        print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         x0 = self.x0.evaluate(self._saxes.axes_variables)
@@ -92,7 +89,6 @@ class HSpan(HSpanModel):
     def __init__(self, saxes: SAxes, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_saxes(saxes)
-        print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         y0 = self.y0.evaluate(self._saxes.axes_variables)

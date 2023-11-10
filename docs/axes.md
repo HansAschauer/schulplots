@@ -13,7 +13,7 @@ Jeder Listeneintrag hat mindestens drei weitere Einträge:
 
 Weitere mögliche Einträge sind `graphs` (für Funktionsgraphen), `areas` (für
 ausgefüllte Flächen), `vlines` (für vertikale Linien), `vspans` (für farblich
-ausgefülle Bereiche zwischen vertikalen Linien). Diese werden in späteren
+ausgefüllte Bereiche zwischen vertikalen Linien). Diese werden in späteren
 Kapiteln behandelt.
 
 ## Attribute der `axes` Struktur
@@ -26,8 +26,8 @@ Die `axes` Struktur besitzt folgende Attribute:
 | `width` | Breite der Achsen | 10cm |
 | `height` | Höhe der Achsen | 8cm |
 | `unit` | Längeneinheit | 1cm |
-| `x_label` | Bezeicher der x-Achse | x |
-| `y_label` | Bezeicher der y-Achse | y |
+| `x_label` | Bezeichner der x-Achse | x |
+| `y_label` | Bezeichner der y-Achse | y |
 | `x_label_offset` | Verschiebung des x-Achsen-Bezeichners | x: 0cm, y: 0.5cm |
 | `y_label_offset` | Verschiebung des y-Achsen-Bezeichners | x: 0.5cm, y: 0cm |
 | `x_tick_distance` | Abstand der x-Achsenmarkierung | 1 |
@@ -48,17 +48,7 @@ Die `axes` Struktur besitzt folgende Attribute:
 
 
 ```yaml
-figure:
-  height: 8cm
-  width: 10cm
-axes_descriptors:
-- axes:
-    height: 6cm
-    width: 8cm
-    x_min: -3
-    y_min: -2
-  bottom: 1cm
-  left: 1cm
+{!input/axes1.yaml!}
 ```
 
 ## Zwei Achsensysteme in einer Zeichnung
@@ -67,26 +57,7 @@ Zwei Achsensysteme mit unterschiedlichen Einheiten in der selben Abbildung.
 <img src="../images/axes2.png" alt="Sinuskurve" width="600"/>
 
 ```yaml
-figure:
-  height: 8cm
-  width: 12cm
-axes_descriptors:
-- axes:
-    height: 6cm
-    width: 4cm
-    x_min: -2
-    y_min: -2
-    show_legend: false
-  bottom: 1cm
-  left: 0.5cm
-- axes:
-    height: 6cm
-    width: 4cm
-    x_min: -2
-    y_min: -2
-    unit: 2cm
-  bottom: 1cm
-  left: 6cm
+{!input/axes2.yaml!}
 ```
-Beachte, dass im linken Achsensytem die Legende ausgeschaltet wurde
+Beachte, dass im linken Achsensystem die Legende ausgeschaltet wurde
 (`show_legend: false`), wodurch das kleine, leere Quadrat verschwindet. Dieses ist die "leere" Legende.

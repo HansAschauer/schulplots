@@ -9,14 +9,17 @@ axes_descriptors:
     y_min: -2
   bottom: 1cm
   left: 1cm
-  vlines:
-  - x: -1
-  - x: 1
+  items:
+  - type: VLine
+    x: -1
+  - type: VLine
+    x: 1
     plot_args:
       color: green
       alpha: 0.4
       linestyle: --
-  - x: 2
+  - type: VLine
+    x: 2
     plot_args:
       color: darkblue
       alpha: 0.4

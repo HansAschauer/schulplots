@@ -15,7 +15,7 @@ Die `graph` Struktur besitzt folgende Attribute:
 | `discontinuities` | Liste von Unstetigkeitsstellen, s.u. | `[]` |
 
 ## Definitionslücken und Unstetigkeitsstellen
-Unstetigkeitsstellen werden durch folgende Struktur beschieben:
+Unstetigkeitsstellen werden durch folgende Struktur beschrieben:
 
 | Attribut | Beschreibung | Default |
 | -- | -- | -- |
@@ -46,7 +46,7 @@ ufunc-Funktionen aus dem `numpy` Pakte. Eine vollständige Liste ist in der
 [NuPy-Dokumentation](https://numpy.org/doc/stable/reference/ufuncs.html#math-operations)
 zu finden. 
 
-Praktisch bedeutet das, dass folgende Ausdrücke gültg sind:
+Praktisch bedeutet das, dass folgende Ausdrücke gültig sind:
 
 * `x`: f(x) = x, eine Gerade durch den Ursprung mit Steigung 1.
 * `2*x+1`: Gerade mit Steigung 2, die die y-Achse bei (0,1) schneidet.
@@ -60,20 +60,7 @@ Praktisch bedeutet das, dass folgende Ausdrücke gültg sind:
 
 
 ```yaml
-figure:
-  height: 8cm
-  width: 10cm
-axes_descriptors:
-- axes:
-    height: 6cm
-    width: 8cm
-    x_min: -3
-    y_min: -2
-  bottom: 1cm
-  left: 1cm
-  graphs:
-  - function: sin(x)
-    label: $\sin(x)$
+{!input/graph1.yaml!}
 ```
 
 ## Bedingungen (`condition`)
@@ -83,46 +70,31 @@ Python-Ausdruck, in dem die Variablen `x` und `y` für die jeweiligen x- und
 y-Werte verwendet werden können.
 
 Es stehen die Vergleichs-Operatoren `<`, `>`, `<=`, `>=`, `==` (gleich), `!=`
-(ungleich) zur Verfügung. Einzelne Vergleiche können mit `&` (und), `|` (oder)
-sowie mit `^` (exklusiv oder) verknüpft werden. Dabei müssen die
-Vergleichs-Operationen in Klammern gesetzt werden.  
+(ungleich) zur Verfügung. Einzelne Vergleiche können mit `and` (und), `or` (oder)
+sowie mit `xor` (exklusiv oder) verknüpft werden.  
 
 Es werden alle Punkte gezeichnet, für die die angegebene Bedingung erfüllt ist.
 
 Beispiele für `condition`:
 
 * `x > 0`: x > 0
-* `(x<2) | (x>3)`: x < 2 or x >  3
+* `x<2 or x>3`: x < 2 oder x >  3
 * `y>0`: alles rechts von der y-Achse
 * `y<x`: alle Punkte unterhalb der Geraden y=x
 
 #### Beispiel 2:
-In diesem Beispiel wird die Bedingung `(-2 < x) & (x < 4) & (y<0.5)` gesetzt, d.h. der Graph wird an den x-Stellen zwischen -2 und 4 gezeichnet, sofern der Funktionswert y kleiner als 0.5 ist.
+In diesem Beispiel wird die Bedingung `-2 < x and x < 4 and y < 0.5` gesetzt, d.h. der Graph wird an den x-Stellen zwischen -2 und 4 gezeichnet, sofern der Funktionswert y kleiner als 0.5 ist.
 
 <img src="../images/graph2.png" alt="Sinuskurve" width="500"/>
 
 
 ```yaml
-figure:
-  height: 8cm
-  width: 10cm
-axes_descriptors:
-- axes:
-    height: 6cm
-    width: 8cm
-    x_min: -3
-    y_min: -2
-  bottom: 1cm
-  left: 1cm
-  graphs:
-  - function: sin(x)
-    label: $\sin(x)$
-    condition: (-2 < x) & (x < 4) & (y<0.5)
+{!input/graph2.yaml!}
 ```
 
 ## Weitere Beispiele
 #### Beispiel 3  
-Dieses Beispiel zeigt die Verwendung von Unstetigkeitsstellen, am Beispiel der Stufenfunktion (`heavyside`). Es wird drei mal die selbe Funktion gezeichnet, wobei die Unstetigkeitsstelle mit dem jeweils angegebenen Wert für das Attribut `belongs_to` konfiguriert wurde.
+Dieses Beispiel zeigt die Verwendung von Unstetigkeitsstellen, am Beispiel der Stufenfunktion (`heaviside`). Es wird drei mal die selbe Funktion gezeichnet, wobei die Unstetigkeitsstelle mit dem jeweils angegebenen Wert für das Attribut `belongs_to` konfiguriert wurde.
 
 <img src="../images/graph4.png" alt="Sinuskurve" width="500"/>
 
@@ -136,8 +108,9 @@ Dieses Beispiel zeigt die Verwendung von Unstetigkeitsstellen, am Beispiel der S
     y_min: -2
   bottom: 1cm
   left: 1cm
-  graphs:
-  - function: heaviside(x,0)
+  items:
+  - type: Graph
+    function: heaviside(x,0)
     discontinuities:
     - x0: 0
       belongs_to: x<x0
@@ -152,12 +125,13 @@ Dieses Beispiel zeigt die Funktionen `maximum` und `heavyside`.
 Die Funktion `maximum(f1(x), f2(x))` liefert für jedes x den größeren der Werte
 f1(x) und f2(x) zurück. Entsprechendes gilt für die `minimum` Funktion.
 
-Praktisch bedeutet das, dass so der jweils weiter oben liegende Graph zweier Funktionen geplottet wird -- zu sehen im linken Achsensystem unten.
+Praktisch bedeutet das, dass so der jeweils weiter oben liegende Graph zweier Funktionen gezeichnet wird -- zu sehen im linken Achsensystem unten.
 ```yaml
   
-  graphs:
+  items:
+  - type: Graph
   # Das ist der interessante Graph
-  - function: maximum(sin(4*x), sin(2*x))
+    function: maximum(sin(4*x), sin(2*x))
   
 ```
 
@@ -178,9 +152,10 @@ Beachte, dass das zweite Argument der heavyside-Funktion praktisch irrelevant is
 Der rechte Graph setzt explizit die Unstetigkeitsstelle x=-1. In der Beschreibungsdatei sieht das so aus:
 ```yaml
   ...
-  graphs:
+  items:
   # Das ist der interessante Graph
-  - function: heaviside(x+1,0) * 2*sin(x) + heaviside(-1-x,1) * 2*cos(x)
+  - type: Graph
+    function: heaviside(x+1,0) * 2*sin(x) + heaviside(-1-x,1) * 2*cos(x)
     discontinuities: 
     - x0: -1
       belongs_to: x>x0
@@ -194,53 +169,5 @@ Verhalten. Die anderen Graphen sind nur gezeichnet, um den weiteren Verlauf der
 zugrundeliegenden Graphen anzudeuten.
 
 ```yaml
-figure:
-  height: 8cm
-  width: 12cm
-axes_descriptors:
-- axes:
-    height: 6cm
-    width: 4cm
-    x_min: -1.5
-    y_min: -2
-    show_legend: true
-  bottom: 1cm
-  left: 1cm
-  graphs:
-  # Das ist der interessante Graph
-  - function: maximum(sin(4*x), sin(2*x))
-    label: $f_1$
-  - function: sin(4*x)
-    plot_args:
-      color: black
-      alpha: 0.2
-    label: 
-  - function: sin(2*x)
-    plot_args:
-      color: black
-      alpha: 0.2
-- axes:
-    height: 6cm
-    width: 4cm
-    x_min: -3
-    y_min: -2
-    legend_options: 
-      loc: upper left # legende nach links oben
-  bottom: 1cm
-  left: 7cm
-  graphs:
-  # Das ist der interessante Graph
-  - function: heaviside(x+1,0) * 2*sin(x) + heaviside(-1-x,1) * 2*cos(x)
-    label: $f_2$
-    discontinuities: 
-    - x0: -1
-      belongs_to: x>x0
-  - function: 2*sin(x)
-    plot_args:
-      color: black
-      alpha: 0.2
-  - function: 2*cos(x)
-    plot_args:
-      color: black
-      alpha: 0.2
+{!input/graph3.yaml!}
 ```
