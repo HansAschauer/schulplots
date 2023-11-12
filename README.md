@@ -1,5 +1,7 @@
 # schulplots - ein Tool zum Erzeugen von 2D-Plots im schul-üblichen Stil
 
+** This project is mainly targeted to a German speaking community. Maybe I will add an english translation later. Thanks for your patience :-) **
+
 `schulplots` ermöglicht es, 2D-Graphen von Funktionen zu erzeugen, die so aussehen, wie Schüler es kennen.
 
 Die Abbildung wird hierbei mit einer Beschreibungs-Datei beschrieben, die von `schulplots`in eine Abbildung umgewandelt wird.
