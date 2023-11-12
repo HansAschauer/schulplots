@@ -27,7 +27,7 @@ class Text(TextModel):
     def __init__(self, saxes: SAxes, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_saxes(saxes)
-        print(f"in {self.class_id}.__init__", self)
+        # print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
         x = self.x.evaluate(self._saxes.axes_variables)

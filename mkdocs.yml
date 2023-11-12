@@ -2,13 +2,19 @@ site_name: schulplots
 site_url: https://schulplots.ch23.de
 nav:
   - Home: index.md
-  - Abbildung: figure.md
-  - Achsensystem: axes.md
-  - Graphen: graph.md
-  - Flächen: area.md
-  - Geraden: lines.md
-  - Beschreibungsdatei: description_file.md
-  - Überblick der Items: items.md
+  - Erste Schritte: 
+    - Installation: installation.md
+    - Aufruf von schulplots: programmaufruf.md
+    - Tutorial: tutorial.md
+  - Referenz:
+    - Abbildung: figure.md
+    - Achsensystem: axes.md
+    - Graphen: graph.md
+    - Flächen: area.md
+    - Geraden: lines.md
+    - Beschreibungsdatei: description_file.md
+    - Überblick der Items: items.md
+
 exclude_docs: |
   input/graph*.yaml
 use_directory_urls: false

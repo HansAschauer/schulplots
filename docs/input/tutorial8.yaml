@@ -1,0 +1,49 @@
+figure:
+  height: 16cm
+  width: 22cm
+axes_descriptors:
+- axes:
+    height: 14cm
+    width: 20cm
+    x_min: -10
+    y_min: -7
+  bottom: 1cm
+  left: 1cm
+  items:
+  - type: Graph
+    function: (x-4)*(x-1)*(x+3) / (4*(x-3)*(x+4))
+    label: $\dfrac{x^3-2x^2-11x+12}{4x²+4x-48}$
+  - type: Graph
+    function: 1/4*x -0.5
+    label: Asymptote
+    plot_args: 
+      ls: --
+      alpha: 0.5
+  - type: VLine
+    x: 3
+    plot_args: 
+      ls: --
+      alpha: 0.5
+  - type: VLine
+    x: -4
+    plot_args: 
+      ls: --
+      alpha: 0.5
+  - type: Text
+    x: 2.8
+    y: 3.5
+    text: Asymptote $x=3$
+    rotation: 90
+    text_args:
+      rotation_mode: anchor
+      ha: left
+      color: black
+  - type: Text
+    x: 5
+    y: 1
+    text: schräge Asymptote
+    rotation: arctan(1/4) * 180 / pi
+    text_args:
+      rotation_mode: anchor
+      ha: left
+      color: black

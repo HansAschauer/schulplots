@@ -38,7 +38,7 @@ class SGraphModel:
     def __post_init__(self):
         if not isinstance(self.function, list):
             self.function = [self.function]
-        print(self.function, type(self.function[0]))
+        # print(self.function, type(self.function[0]))
         if self.label is None:
             self.label = None
             #self.label = self.function[0]
@@ -151,7 +151,6 @@ class FillBetween(SGraph, FillBetweenModel):
         self._saxes.axes_variables.update(update_dict)
         update_dict= {f"{self.var_prefix}sect_y_{i}": value.evaluate(dict(x=self.intersects)) for (i,value) in enumerate(self.function)}
         self.condition = tmp_cond
-        print
         self._saxes.axes_variables.update(update_dict)
         
         

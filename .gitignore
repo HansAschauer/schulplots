@@ -5,3 +5,6 @@ __pycache__/
 docs/images/
 *.pyc
 settings.json
+src/schulplots/_attic/
+dist/
+poetry.lock

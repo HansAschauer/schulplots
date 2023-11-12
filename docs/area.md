@@ -21,9 +21,11 @@ Das Attribut `function` ist eine Liste, die zwei Funktionsterme enthält. Hier e
     plot_args:
       alpha: 0.3
       color: green
-    condition: y1 >= y2
+    condition: y1 >= y2 # (1)!
 ...
 ```
+
+1.   Hier bezieht sich `y1` auf die erste Funktion ($\sin(x)$), und `y2` auf die zweite Funktion ($\frac{1}{4} x^2$).
 
 ## Bedingungen (`condition`)
 Bedingungen für Flächen funktionieren ähnlich zu Bedingungen bei
@@ -40,17 +42,17 @@ Genau wie bei Graphen stehen die Vergleichs-Operatoren `<`, `>`, `<=`, `>=`,
 
 Beispiele für `condition`:
 
-* `x > 0`: x > 0
-* `(x<2) | (x>3)`: x < 2 or x >  3
-* `y>0`: alles rechts von der y-Achse
-* `y<x`: alle Punkte unterhalb der Geraden y=x
+* `x > 0`: $x > 0$, alles rechts von der y-Achse
+* `x<2 or x>3`: $x< 2$ oder $x >  3$
+* `y>0`: alles oberhalb der x-Achse
+* `y<x`: alle Punkte unterhalb der Geraden $y=x$
 
 #### Beispiel 1:
-Im linken Achsensystem wurde keine Bedingung angegeben -- es wird deshalb die gesamte von den beiden Funktionsgraphen eingeschlossene Fläche gezeichnet. Rechts wurde als Bedingung `y1 >= y2` angegeben, y1 >= y2so dass nur der Teil der Fläche dargestellt wird, in der die blaue Kurve oberhalb der orangenen liegt.
+Im linken Achsensystem wurde keine Bedingung angegeben -- es wird deshalb die gesamte von den beiden Funktionsgraphen eingeschlossene Fläche gezeichnet. Rechts wurde als Bedingung `y1 >= y2` angegeben, so dass nur der Teil der Fläche dargestellt wird, in der die blaue Kurve oberhalb der orangenen liegt.
 
 <img src="../images/area1.png" alt="Sinuskurve" width="600"/>
 
-```yaml
+```yaml linenums="1" hl_lines="45"
 --8<-- "docs/input/area1.yaml"
 ```
 Dieses Beispiel lässt sich auch kürzer schreiben, unter Verwendung von YAML

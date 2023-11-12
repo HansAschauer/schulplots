@@ -1,0 +1,20 @@
+figure:
+  height: 16cm
+  width: 22cm
+axes_descriptors:
+- axes:
+    height: 14cm
+    width: 20cm
+    x_min: -10
+    y_min: -7
+  bottom: 1cm
+  left: 1cm
+  items:
+  - type: Graph
+    function: (x-4)*(x-1)*(x+3) / (4*(x-3)*(x+4))
+  - type: Graph
+    function: 1/4*x -0.5
+  - type: VLine
+    x: 3
+  - type: VLine
+    x: -4

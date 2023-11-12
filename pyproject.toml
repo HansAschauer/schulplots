@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "schulplots"
+version = "0.1.0"
+description = "schulplots is an educational tool to create plots of functions, styled as expected by undergraduate studnes in German schools."
+authors = ["Hans Aschauer <schulplots@ch23.de>"]
+license = "PSF-like"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+matplotlib = "^3.8.1"
+pyparsing = "^3.1.1"
+numpy="^1.26.1"
+cattrs = "^23.1.2"
+
+[tool.poetry.group.dev.dependencies]
+mkdocs = "^1.5.3"
+mkdocs-material = "^9.4.8"
+icecream = "^2.1.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+schulplots = "schulplots.main:main"

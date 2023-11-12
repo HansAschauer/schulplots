@@ -76,7 +76,7 @@ class SAxes(SAxesModel):
         aw, ah = trf.transform((self.width, self.height))
         al, ab = trf.transform((left, bottom))
         rect = (al, ab, aw, ah)
-        ic(rect)
+        #ic(rect)
         #ic(self)
         self.axes = figure.add_axes(rect)
         self.axes.set_xlim(self.x_min, self.x_max)
@@ -103,7 +103,7 @@ class SAxes(SAxesModel):
         self.axes.spines['right'].set_visible(False)
 
         dx, dy = self.x_label_offset.args()
-        dx1, dy1 = ic(self.get_offset_x_ax(dx, dy))
+        dx1, dy1 = self.get_offset_x_ax(dx, dy)
         self.axes.xaxis.set_label_coords(1+dx1, 0+dy1, 
                                          transform=self.axes.get_yaxis_transform())
         self.axes.yaxis.label.set(rotation="horizontal")

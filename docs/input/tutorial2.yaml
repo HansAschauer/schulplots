@@ -1,0 +1,11 @@
+figure:
+  height: 16cm
+  width: 22cm
+axes_descriptors:
+- axes:
+    height: 14cm
+    width: 20cm
+    x_min: -10
+    y_min: -7
+  bottom: 1cm
+  left: 1cm
