@@ -44,6 +44,10 @@ It is also possible to draw multiple axis systems with multiple graphs:
 
 <img src="images/plot_sinus2.png" alt="Sine Curve" width="500"/>
 
+## Installation
+
+`schulplots` requires a recent version of Python. If you have Python installed (including pip, the python package manager), you can install it  from [PyPi](https://pypi.org/project/schulplots/) with `pip install schulplots`. 
+
 ## Documentation
 
 You can find detailed documentation [here](https://schulplots.hans-aschauer.de) (sorry, German only for now).
