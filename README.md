@@ -1,5 +1,5 @@
 
-# schulplots - a tool for generating 2D plots in the typical school style
+# schulplots - a tool for generating 2D plots in "German school style"
 
 `schulplots` allows you to create 2D graphs of functions that look like what students are familiar with.
 
@@ -46,7 +46,7 @@ It is also possible to draw multiple axis systems with multiple graphs:
 
 ## Documentation
 
-You can find detailed documentation [here](https://schulplots.hans-aschauer.de).
+You can find detailed documentation [here](https://schulplots.hans-aschauer.de) (sorry, German only for now).
 
 ## Limitations
 

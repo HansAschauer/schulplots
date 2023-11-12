@@ -1,13 +1,18 @@
 [tool.poetry]
 name = "schulplots"
-version = "0.1.0"
-description = "schulplots is an educational tool to create plots of functions, styled as expected by undergraduate studnes in German schools."
-authors = ["Hans Aschauer <schulplots@ch23.de>"]
-license = "PSF-like"
+version = "0.8.0"
+description = "schulplots -- an educational tool to create plots of functions, styled as expected by undergraduate students in German schools."
+authors = ["Hans Aschauer <schulplots@hans-aschauer.de>"]
+license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/HansAschauer/schulplots/"
 documentation = "https://schulplots.hans-aschauer.de"
-
+classifiers = [
+    "Intended Audience :: Education",
+     "Programming Language :: Python :: 3.11",
+     "Framework :: Matplotlib"
+]
+keywords = ["education", "plotting", "teaching", "publication"]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
