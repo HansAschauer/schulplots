@@ -45,6 +45,10 @@ Es ist auch möglich, mehrere Achensysteme mit mehreren Graphen zu zeichen:
 
 <img src="images/plot_sinus2.png" alt="Sinuskurve" width="500"/>
 
+## Dokumentation
+
+Ausführliche Dokumentation findest du [hier](https://schulplots.hans-aschauer.de).
+
 ## Einschränkungen
 
 * Das Tool ist beschränkt auf das Plotten von Funktionsgraphen, in "üblichen" Wertebereichen. Es ist bewußt kein umfassendes Plot-Tool für wissenschaftliche Zwecke.
