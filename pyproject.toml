@@ -5,6 +5,9 @@ description = "schulplots is an educational tool to create plots of functions, s
 authors = ["Hans Aschauer <schulplots@ch23.de>"]
 license = "PSF-like"
 readme = "README.md"
+homepage = "https://github.com/HansAschauer/schulplots/"
+documentation = "https://schulplots.hans-aschauer.de"
+
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
@@ -12,6 +15,7 @@ matplotlib = "^3.8.1"
 pyparsing = "^3.1.1"
 numpy="^1.26.1"
 cattrs = "^23.1.2"
+PyYAML = "^6.0.1"
 
 [tool.poetry.group.dev.dependencies]
 mkdocs = "^1.5.3"
