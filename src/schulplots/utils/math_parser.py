@@ -1,3 +1,13 @@
+## Code in this file is heavily based on the fourFn example from pyparsing
+## (https://github.com/pyparsing/pyparsing/blob/master/examples/fourFn.py)
+## The original copiright notice is repoduced below.
+
+## Changes: 
+## - add an object-oriented interface
+## - add boolean operators, trying to reproduce the python semantics of these operators
+## - same for comparison operators
+## - include (some) numpy ufuncs
+
 # fourFn.py
 #
 # Demonstration of the pyparsing module, implementing a simple 4-function expression parser,
@@ -10,6 +20,25 @@
 #
 # Copyright 2003-2019 by Paul McGuire
 #
+
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+# 
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #%%
 from pyparsing import (
     Literal,
@@ -26,8 +55,10 @@ from pyparsing import (
 )
 import math
 import operator
-from typing import Any
+from typing import Any, Optional
 import numpy as np
+
+vardict_t = Optional[dict[str, Any]]
 
 # map operator symbols to corresponding arithmetic operations
 epsilon = 1e-12
@@ -92,6 +123,11 @@ class MathParser:
         factor  :: atom [ expop factor ]*
         term    :: factor [ multop factor ]*
         expr    :: term [ addop term ]*
+        
+        
+        ... not covered in this grammar, but present in the code below:
+        - boolean operators
+        - comparison operators
         """
         if self.bnf is None:
             # use CaselessKeyword for e and pi, to avoid accidentally matching
@@ -155,8 +191,8 @@ class MathParser:
 
 
     @staticmethod
-    def evaluate_stack(s, var_dict: dict[str, Any]| None = None,
-                       func_dict: dict[str, Any]| None = None):
+    def evaluate_stack(s, var_dict: vardict_t = None,
+                       func_dict: vardict_t = None):
         if var_dict is None:
             var_dict = dict()
         if func_dict is None:
@@ -203,16 +239,16 @@ class MathParser:
         return self.exprStack[:]
     def evaluate_compiled_expression(self, 
                                      expr_stack, 
-                                     var_dict:dict[str, Any]| None = None,
-                                     func_dict:dict[str, Any]| None = None):
+                                     var_dict:vardict_t = None,
+                                     func_dict:vardict_t = None):
         return self.evaluate_stack(expr_stack[:], var_dict, func_dict)
     def evaluate_expression(self, s: str, 
-                            var_dict:dict[str, Any]| None = None,
-                             func_dict:dict[str, Any]| None = None):
+                            var_dict:vardict_t = None,
+                             func_dict:vardict_t = None):
         stack = self.compile_expression(s)
         return self.evaluate_compiled_expression(stack, var_dict, func_dict)
     def evaluate_expression_(self, s: str, 
-                             var_dict:dict[str, Any]| None = None):
+                             var_dict:vardict_t = None):
         self.exprStack[:] = []
         self.results = self.bnf.parseString(s, parseAll=True)
         val = self.evaluate_stack(self.exprStack[:], var_dict)
@@ -220,7 +256,6 @@ class MathParser:
     
     
 parser=MathParser()
-#%%
 
 if __name__ == "__main__":
     import numpy as np

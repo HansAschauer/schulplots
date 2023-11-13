@@ -1,6 +1,6 @@
 
 #%%
-from .math_parser import parser
+from .math_parser import parser, vardict_t
 
 from dataclasses import dataclass, field
 from typing import Any
@@ -13,8 +13,8 @@ class MathExpression(str):
         self._evaluated = None
         self.value = s
         
-    def evaluate(self, vars: dict[str, Any]| None = None, 
-                 functions: dict[str, Any]| None = None, 
+    def evaluate(self, vars: vardict_t = None, 
+                 functions: vardict_t = None, 
                  force_reeval=False):
         if vars is None:
             vars = {}
