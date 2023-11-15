@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "schulplots"
-version = "0.8.0"
+version = "0.8.3"
 description = "schulplots -- an educational tool to create plots of functions, styled as expected by undergraduate students in German schools."
 authors = ["Hans Aschauer <schulplots@hans-aschauer.de>"]
 license = "MIT"
@@ -15,10 +15,10 @@ classifiers = [
 keywords = ["education", "plotting", "teaching", "publication"]
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.13"
-matplotlib = "^3.8.1"
+python = ">=3.9,<3.13"
+matplotlib = "^3.7.1"
 pyparsing = "^3.1.1"
-numpy="^1.26.1"
+numpy="^1.23.1"
 cattrs = "^23.1.2"
 PyYAML = "^6.0.1"
 
