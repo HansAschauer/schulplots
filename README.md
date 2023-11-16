@@ -1,4 +1,6 @@
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HansAschauer/schulplots/blob/main/src/notebook_example.ipynb)
+
 # schulplots - a tool for generating 2D plots in "German school style"
 
 `schulplots` allows you to create 2D graphs of functions that look like what students are familiar with.
@@ -48,9 +50,9 @@ It is also possible to draw multiple axis systems with multiple graphs:
 
 `schulplots` requires a recent version of Python. If you have Python installed (including pip, the python package manager), you can install it  from [PyPi](https://pypi.org/project/schulplots/) with `pip install schulplots`. 
 
-## Run from Collaboratory
+## Run from Colab
 
-You can use schulplots without installation directly in Google Colaboratory. For an example, click [here](https://colab.research.google.com/github/HansAschauer/schulplots/blob/main/src/notebook_example.ipynb).
+You can use schulplots without installation directly in Google Colab. For an example, click [here](https://colab.research.google.com/github/HansAschauer/schulplots/blob/main/src/notebook_example.ipynb).
 ![Screenshot](images/ScreenshotColaboratory.png)
 
 ## Documentation
