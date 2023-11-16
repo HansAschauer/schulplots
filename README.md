@@ -48,6 +48,11 @@ It is also possible to draw multiple axis systems with multiple graphs:
 
 `schulplots` requires a recent version of Python. If you have Python installed (including pip, the python package manager), you can install it  from [PyPi](https://pypi.org/project/schulplots/) with `pip install schulplots`. 
 
+## Run from Collaboratory
+
+You can use schulplots without installation directly in Google Colaboratory. For an example, click [here](https://colab.research.google.com/github/HansAschauer/schulplots/blob/main/src/notebook_example.ipynb).
+![Screenshot](images/ScreenshotColaboratory.png)
+
 ## Documentation
 
 You can find detailed documentation [here](https://schulplots.hans-aschauer.de) (sorry, German only for now).
