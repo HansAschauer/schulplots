@@ -3,6 +3,7 @@ __pycache__/
 /site/
 /images/*.png
 !/images/plot_sinus*.png
+!/images/Screenshot*.png
 docs/images/
 *.pyc
 settings.json
