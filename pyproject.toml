@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "schulplots"
-version = "0.8.3"
+version = "0.8.4"
 description = "schulplots -- an educational tool to create plots of functions, styled as expected by undergraduate students in German schools."
 authors = ["Hans Aschauer <schulplots@hans-aschauer.de>"]
 license = "MIT"
