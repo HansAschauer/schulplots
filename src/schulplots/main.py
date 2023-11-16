@@ -3,17 +3,23 @@ from .converter import converter
 from .figure_description import FigureDescription
 import argparse
 from os import path
+from typing import Optional
 
 try:
     from icecream import ic
 except ImportError:  # Graceful fallback if IceCream isn't installed.
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
 
+def generate_plot(infile: str, outfile: Optional[str] = None):
+    with open(infile, "r") as f:
+        fdsc = converter.loads(f.read(), FigureDescription)
+        fdsc.figure.output_file = outfile
+        fdsc.create_figure()
 def main():
     parser = argparse.ArgumentParser(
         prog="schulplots.py", 
         description="Create function plots styled similar to the conventions used in German schools.\n"\
-            "For documentation, see https://schulplots.ch23.de"
+            "For documentation, see https://schulplots.hans-aschauer.de"
     )
     parser.add_argument("filename", help="Description of the figure, in YAML format")
     parser.add_argument("--output", "-o", 
@@ -24,18 +30,20 @@ def main():
                         action="store_true", default=False)
 
     args = parser.parse_args()
-    fdsc = converter.loads(open(args.filename, "r").read(), FigureDescription)
     if args.output is not None and args.show:
         parser.print_help()
     elif args.output is not None and not args.show:
-        fdsc.figure.output_file = args.output
+        generate_plot(args.filename, args.output)
+        #fdsc.figure.output_file = args.output
     elif args.output is None and args.show:
-        fdsc.figure.output_file = None
+        generate_plot(args.filename, None)
+        #fdsc.figure.output_file = None
     elif args.output is None and not args.show:
         bname, _ = path.splitext(path.basename(args.filename))
-        fdsc.figure.output_file = bname + ".png"
+        generate_plot(args.filename, bname + ".png")
+        #fdsc.figure.output_file = bname + ".png"
         
     else:
         raise ValueError("Logic error: this should not happen")
-    fdsc.create_figure()
+    #fdsc.create_figure()
         
