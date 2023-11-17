@@ -30,7 +30,7 @@ axes_descriptors:
       alpha: 0.3
       color: red
   vlines:
-  - x_var: sect_x_1
+  - x: sect_x_1
   vspans:
   - x0: -2.5
     x1: -2
