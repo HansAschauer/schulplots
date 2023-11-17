@@ -2,8 +2,7 @@ from typing import Union, Protocol, ClassVar, Type, TYPE_CHECKING, TypeVar
 try:
     from  typing import dataclass_transform
 except ImportError:
-    dataclass_transform = lambda x: x
-#from cattrs.strategies import include_subclasses
+    dataclass_transform = lambda: lambda x: x
 try:
     from icecream import ic
 except ImportError:  # Graceful fallback if IceCream isn't installed.
