@@ -66,11 +66,11 @@ def impl_for_type(type: str) -> Type[AxesAddableImpl]:
 T = TypeVar("T", bound=AxesAddable)
 TImpl = TypeVar("TImpl", bound=AxesAddableImpl)
 
-@dataclass_transform # type: ignore
+@dataclass_transform() # type: ignore
 def register_model(cls: Type[T]) -> Type[T]:
     _modell_class_dict[cls.class_id] = cls
     return cls
-@dataclass_transform # type: ignore
+@dataclass_transform() # type: ignore
 def register_impl(cls: Type[TImpl]) -> Type[TImpl]:
     _impl_class_dict[cls.class_id] = cls
     return cls
