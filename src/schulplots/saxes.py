@@ -10,7 +10,8 @@ from .types import cm, Size, Point
 
 if TYPE_CHECKING:
     from .sfigure import SFigure
-
+    from .utils.math_expression import MathExpression
+    from .utils.math_parser import vardict_t
 try:
     from icecream import ic
 except ImportError:  # Graceful fallback if IceCream isn't installed.
@@ -114,18 +115,23 @@ class SAxes(SAxesModel):
         self.axes.yaxis.set_label_coords(0+dx1, 1+dy1, 
                                          transform=self.axes.get_xaxis_transform())
         
+    def evaluate(self, 
+                 expr: "MathExpression", 
+                 vars: Optional["vardict_t"] = None, 
+                 functions: Optional["vardict_t"]= None):
+        if vars is None:
+            vars = {}
+        vars = vars | self.axes_variables
+        if functions is None:
+            functions = {}
+        functions = functions | self.axes_functions
+        try:
+            res = expr.evaluate(vars, functions)
+        except Exception as e:
+            print(f"Warning: got exception '{e}' in evaluation of '{expr}'.")
+            res = 0
+        return res
         
-        #self.axes.xaxis.label.set_position((1,0))
-        #ic(self.axes.xaxis.get_label_coords())
-        #self.axes.xaxis.set_label_coords(*self.x_label_pos.args())
-        #my_transform = ScaledTranslation(1, 0.5, self.axes.get_yaxis_transform())
-        #self.axes.xaxis.set_label_coords(*self.x_label_pos.args(), my_transform)
-        #px,py = ic(self.axes.xaxis.label.get_position())
-
-        #self.axes.yaxis.label.set_position((self.y_label_pos.x, self.y_label_pos.y))
-        #my_transform = ScaledTranslation(0.3, 0.98, self.axes.get_xaxis_transform())
-        #self.axes.yaxis.set_label_coords(*self.y_label_pos.args(), transform=my_transform)
-        #px,py = ic(self.axes.yaxis.label.get_position())
     
     def finalize(self):
         if self.show_legend:

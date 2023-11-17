@@ -28,7 +28,7 @@ class VLine(VLineModel):
         self.set_saxes(saxes)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
-        x = self.x.evaluate(self._saxes.axes_variables)
+        x = self._saxes.evaluate(self.x)
         self._saxes.axes.axvline(x=x,ymin=self.y_min, ymax=self.y_max, 
                                  **self.plot_args)
 @register_model  
@@ -47,7 +47,7 @@ class HLine(HLineModel):
         self.set_saxes(saxes)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
-        y = self.y.evaluate(self._saxes.axes_variables)
+        y = self._saxes.evaluate(self.y)
         self._saxes.axes.axhline(y=y,xmin=self.x_min, xmax=self.x_max, 
                                  **self.plot_args)
 @register_model  
@@ -68,8 +68,8 @@ class VSpan(VSpanModel):
         self.set_saxes(saxes)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
-        x0 = self.x0.evaluate(self._saxes.axes_variables)
-        x1 = self.x1.evaluate(self._saxes.axes_variables)
+        x0 = self._saxes.evaluate(self.x0)
+        x1 = self._saxes.evaluate(self.x1)
         self._saxes.axes.axvspan(xmin=x0, xmax=x1,ymin=self.y_min, 
                                  ymax=self.y_max, **self.plot_args)
         
@@ -91,8 +91,8 @@ class HSpan(HSpanModel):
         self.set_saxes(saxes)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
-        y0 = self.y0.evaluate(self._saxes.axes_variables)
-        y1 = self.y1.evaluate(self._saxes.axes_variables)
+        y0 = self._saxes.evaluate(self.y0)
+        y1 = self._saxes.evaluate(self.y1)
         self._saxes.axes.axhspan(ymin=y0, ymax=y1,xmin=self.x_min, 
                                  xmax=self.x_max, **self.plot_args)
         
@@ -118,11 +118,11 @@ class Arrow(ArrowModel):
         self.setup_saxes(self._saxes)
     def setup_saxes(self, saxes: SAxes):
         self._saxes = saxes
-        x = self.x.evaluate(self._saxes.axes_variables)
-        y = self.y.evaluate(self._saxes.axes_variables)
-        dx = self.dx.evaluate(self._saxes.axes_variables)
-        dy = self.dy.evaluate(self._saxes.axes_variables)
-        self._saxes.axes.arrow(x,y, dx, dy, 
+        x = self._saxes.evaluate(self.x)
+        y = self._saxes.evaluate(self.y)
+        dx = self._saxes.evaluate(self.dx)
+        dy = self._saxes.evaluate(self.dy)
+        self._saxes.axes.arrow(x+dx,y+dy, -dx, -dy, 
                                length_includes_head=self.length_includes_head,
                                width=self.width, **self.plot_args)
         

@@ -30,8 +30,8 @@ class Text(TextModel):
         # print(f"in {self.class_id}.__init__", self)
     def set_saxes(self, saxes: SAxes):
         self._saxes = saxes
-        x = self.x.evaluate(self._saxes.axes_variables)
-        y = self.y.evaluate(self._saxes.axes_variables)
-        rotation = self.rotation.evaluate(self._saxes.axes_variables)
+        x = self._saxes.evaluate(self.x)
+        y = self._saxes.evaluate(self.y)
+        rotation = self._saxes.evaluate(self.rotation)
         self._saxes.axes.text(x,y, self.text, rotation=rotation, 
                                  **self.text_args)

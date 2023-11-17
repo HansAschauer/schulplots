@@ -23,8 +23,8 @@ class SFunctionModel:
     
 @register_impl
 class SFunction(SFunctionModel):
-    def __init__(self, saxes: SAxes, *args, **kwargs):
+    def __init__(self, saxes: "SAxes", *args, **kwargs):
         self._saxes = saxes
         super().__init__(*args, **kwargs)
-        f_x = lambda x: self.function.evaluate(dict(x=x))
+        f_x = lambda x: self.function.evaluate(dict(x=x), force_reeval=True)
         self._saxes.axes_functions.update({self.name: f_x})
