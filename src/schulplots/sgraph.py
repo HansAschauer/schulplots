@@ -45,9 +45,9 @@ class SGraphModel:
 
 @register_impl
 class SGraph(SGraphModel):
-    _saxes: Optional[SAxes]
+    _saxes: SAxes
     _cond_array: Optional[np.ndarray]
-    _ys: Optional[np.ndarray]
+    _ys: list[np.ndarray]
     
     def __init__(self, saxes: SAxes, *args, **kwargs):
         self._saxes = saxes
@@ -77,7 +77,7 @@ class SGraph(SGraphModel):
         self._current_color = line.get_color()
         l, = self.x.shape
         for dc in self.discontinuities:
-            idx = np.argmin(np.abs(self.x - dc.x0))
+            idx = int(np.argmin(np.abs(self.x - dc.x0)))
             if dc.belongs_to == DiscontinuityBelongsTo.NONE:
                 idx1 = min(l-1, idx + 1)
                 idx2 = max(0, idx - 1)
@@ -96,14 +96,21 @@ class SGraph(SGraphModel):
        
         
     def get_locals(self) -> dict[str, np.ndarray]:
-        d1 =  dict(x=self.x, y=self._ys[0])
+        d1: dict[str, Any] =  dict(x=self.x, y=self._ys[0])
         d1.update(self._saxes.axes_variables)
         return d1
     
     def _eval_condition(self):
         if self.condition is None:
             return
-        self._cond_array = self.condition.evaluate(self.get_locals())
+        cond_array = self.condition.evaluate(self.get_locals())
+        if not isinstance(cond_array, np.ndarray):
+            print(f"Warning: condition '{self.condition}' does not evaluate to array.")
+            return
+        if not cond_array.dtype == np.bool_:
+            print(f"Warning: condition '{self.condition}' does not evaluate to boolean expression")
+            return
+        self._cond_array = cond_array
     
     def _eval_functions(self):
         for i, f in enumerate(self.function):
@@ -159,7 +166,7 @@ class FillBetween(SGraph, FillBetweenModel):
         return self.intersects[np.argmin(np.abs(self.intersects - x))]
 
     def get_locals(self) -> dict[str, np.ndarray]:
-        d1 =  dict(x=self.x, y1=self._ys[0], y2=self._ys[1])
+        d1: dict[str, Any] =  dict(x=self.x, y1=self._ys[0], y2=self._ys[1])
         d1.update(self._saxes.axes_variables)
         return d1
 

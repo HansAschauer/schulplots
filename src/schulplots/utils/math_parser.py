@@ -235,6 +235,8 @@ class MathParser:
                 return float(op)
     def compile_expression(self, s: str):
         self.exprStack[:] = []
+        if self.bnf is None:
+            raise ValueError("This should not happen...")
         self.results = self.bnf.parseString(s, parseAll=True)
         return self.exprStack[:]
     def evaluate_compiled_expression(self, 
@@ -249,6 +251,8 @@ class MathParser:
         return self.evaluate_compiled_expression(stack, var_dict, func_dict)
     def evaluate_expression_(self, s: str, 
                              var_dict:vardict_t = None):
+        if self.bnf is None:
+            raise ValueError("This should not happen...")
         self.exprStack[:] = []
         self.results = self.bnf.parseString(s, parseAll=True)
         val = self.evaluate_stack(self.exprStack[:], var_dict)

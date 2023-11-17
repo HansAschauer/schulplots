@@ -21,18 +21,18 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
 class SAxesModel:
     x_min: float
     y_min: float
-    width: Size = 10 * cm
-    height: Size = 8 * cm
+    width: Size = Size(10 * cm)
+    height: Size = Size(8 * cm)
     x_label: str = "x"
     y_label: str = "y"
     x_tick_distance: float = 1
     y_tick_distance: float = 1
-    unit:Size = 1*cm
+    unit:Size = Size(1*cm)
     show_legend: bool = True
     legend_options: dict[str, Any] = field(default_factory=dict)    
     n_points = 3000
-    x_label_offset: Point = Point(0.5*cm,0)
-    y_label_offset: Point = Point(0,0.5*cm)
+    x_label_offset: Point = Point(Size(0.5*cm), Size(0))
+    y_label_offset: Point = Point(Size(0),Size(0.5*cm))
 
     def __post_init__(self):
         self.x_max: float = self.x_min + self.width/self.unit
@@ -57,6 +57,7 @@ class SAxes(SAxesModel):
     def get_offset_x_ax(self, dx, dy):
         ax = self.axes
         tr1 = ax.get_yaxis_transform()
+        assert ax.figure is not None
         tr2 = ax.figure.dpi_scale_trans.inverted()
         tr = tr1+tr2
         tx,ty = tr.transform((0,0))
@@ -65,6 +66,7 @@ class SAxes(SAxesModel):
     def get_offset_y_ax(self, dx, dy):
         ax = self.axes
         tr1 = ax.get_xaxis_transform()
+        assert ax.figure is not None
         tr2 = ax.figure.dpi_scale_trans.inverted()
         tr = tr1+tr2
         tx,ty = tr.transform((0,0))

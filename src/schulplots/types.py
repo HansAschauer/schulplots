@@ -21,7 +21,7 @@ units = {"cm": 1./2.54,
 #%%
 
 class Size(float):
-    def __new__(self, value: Union[float, str]):
+    def __new__(cls, value: Union[float, str]):
         if isinstance(value, str):
             if value.isnumeric():
                 value = float(value)
@@ -31,7 +31,7 @@ class Size(float):
                     raise ValueError("Invalid size")
                 val, _, unit = m.groups()
                 value = float(val) * units[unit]
-        return float.__new__(self, value)
+        return float.__new__(cls, value)
     def __init__(self, value: Union[float, str]):
         self._init_as = str(value)
     def __repr__(self):

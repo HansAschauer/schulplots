@@ -29,17 +29,17 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
 
 @dataclass
 class SFigureModel:
-    width: Size = 21.0 * cm
-    height: Size = 29.7 * cm
-    grid: Size = 0.5 * cm
+    width: Size = Size(21.0 * cm)
+    height: Size = Size(29.7 * cm)
+    grid: Size = Size(0.5 * cm)
     grid_options: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.2, lw=0.5))
     output_file: Optional[str] = None
     dpi: int = 300
     #action: FigAction = FigAction.INTERACT
         
 class SFigure(SFigureModel):
-    saxes: Iterable["SAxes"]
-    figure: Optional[Figure]
+    saxes: list["SAxes"]
+    figure: Figure
     def __init__(self, *args, f: Optional[Figure] = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.saxes = []

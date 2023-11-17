@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional, Any, Callable, Union, ClassVar
+from typing import Optional, Any, Callable, Union, ClassVar, TYPE_CHECKING
 from types import CodeType
 from enum import Enum, unique
 
@@ -10,7 +10,8 @@ try:
 except ImportError:  # Graceful fallback if IceCream isn't installed.
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
 
-from .saxes import SAxes
+if TYPE_CHECKING:
+    from .saxes import SAxes
 from .utils.math_expression import MathExpression
 
 @register_model
