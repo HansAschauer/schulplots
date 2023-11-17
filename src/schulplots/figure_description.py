@@ -30,8 +30,8 @@ class AxesWithGraphs:
     vspans: list[VSpanModel] = field(default_factory=list)
     functions: dict[str, MathExpression] = field(default_factory=dict)
     items: list[AxesAddable] = field(default_factory=list)
-    left: Size = 0
-    bottom: Size = 0
+    left: Size = Size(0)
+    bottom: Size = Size(0)
     templates: dict = field(default_factory=dict)
     
     def setup(self, saxes: SAxes):

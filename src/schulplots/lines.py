@@ -16,9 +16,9 @@ from .saxes import SAxes
 @dataclass
 class VLineModel:
     class_id: ClassVar[str] = "VLine"    
-    x: MathExpression = 0
-    y_min: float = 0
-    y_max: float = 1
+    x: MathExpression = MathExpression(0)
+    y_min: float = 0.
+    y_max: float = 1.
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.5))
 @register_impl
 class VLine(VLineModel):
@@ -35,9 +35,9 @@ class VLine(VLineModel):
 @dataclass
 class HLineModel:
     class_id: ClassVar[str] = "HLine"    
-    y: MathExpression = 0
-    x_min: float = 0
-    x_max: float = 1
+    y: MathExpression = MathExpression(0)
+    x_min: float = 0.
+    x_max: float = 1.
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.5))
 @register_impl
 class HLine(HLineModel):
@@ -77,8 +77,8 @@ class VSpan(VSpanModel):
 @dataclass
 class HSpanModel:
     class_id: ClassVar[str] = "HSpan"    
-    y0: MathExpression = 0
-    y1: MathExpression = 0
+    y0: MathExpression = MathExpression(0)
+    y1: MathExpression = MathExpression(0)
     x_min: float = 0
     x_max: float = 1
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(alpha=0.3, lw=0))
@@ -100,16 +100,17 @@ class HSpan(HSpanModel):
 @dataclass
 class ArrowModel:
     class_id: ClassVar[str] = "Arrow" 
-    x: MathExpression = 0
-    y: MathExpression = 0
-    dx: MathExpression = 1
-    dy: MathExpression = -1
+    x: MathExpression = MathExpression(0)
+    y: MathExpression = MathExpression(0)
+    dx: MathExpression = MathExpression(0)
+    dy: MathExpression = MathExpression(-1)
     width: float = 0.08
     length_includes_head: bool = True
     
     plot_args: dict[str, Any] = field(default_factory=lambda: dict(linewidth=0))
 
 @register_impl
+@dataclass
 class Arrow(ArrowModel):
     def __init__(self, saxes, *args, **kwargs):
         super().__init__(*args, **kwargs)

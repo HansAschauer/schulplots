@@ -1,4 +1,8 @@
-from typing import Union, Protocol, ClassVar, Type, TYPE_CHECKING
+from typing import Union, Protocol, ClassVar, Type, TYPE_CHECKING, TypeVar
+try:
+    from  typing import dataclass_transform
+except ImportError:
+    dataclass_transform = lambda x: x
 #from cattrs.strategies import include_subclasses
 try:
     from icecream import ic
@@ -51,17 +55,23 @@ class AxesAddable(Protocol):
     class_id: ClassVar[str]
 class AxesAddableImpl(Protocol):
     class_id: ClassVar[str]
-    def __init__(saxes: "SAxes", *args, **kwargs): ...    
+    def __init__(self, saxes: "SAxes", *args, **kwargs): ...    
 
+
+_modell_class_dict: dict[str, Type[AxesAddable]] = {}
+_impl_class_dict: dict[str, Type[AxesAddableImpl]] = {}
 def impl_for_type(type: str) -> Type[AxesAddableImpl]:
     return _impl_class_dict[type]
 
-_modell_class_dict: dict[str, Type[AxesAddable]] = {}
-_impl_class_dict: dict[str, Type[AxesAddable]] = {}
-def register_model(cls: Type[AxesAddable]) -> Type[AxesAddable]:
+T = TypeVar("T", bound=AxesAddable)
+TImpl = TypeVar("TImpl", bound=AxesAddableImpl)
+
+@dataclass_transform # type: ignore
+def register_model(cls: Type[T]) -> Type[T]:
     _modell_class_dict[cls.class_id] = cls
     return cls
-def register_impl(cls: Type[AxesAddableImpl]) -> Type[AxesAddableImpl]:
+@dataclass_transform # type: ignore
+def register_impl(cls: Type[TImpl]) -> Type[TImpl]:
     _impl_class_dict[cls.class_id] = cls
     return cls
 def unstructure_AxesAddable(p: AxesAddable, *args):
