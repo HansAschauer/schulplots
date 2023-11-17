@@ -1,0 +1,39 @@
+figure:
+  height: 8cm
+  width: 10cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 8cm
+    x_min: -3
+    y_min: -2
+  bottom: 1cm
+  left: 1cm
+  functions:
+    f: (x-2)*(x-0.5)*(x+1.5) / (4*(x-1.5)*(x+1))
+  items:
+  - type: Graph
+    function: f(x)
+    label: f(x)
+  - type: Arrow
+    x: 1
+    y: f(1) 
+    dx: -1
+    dy: 1
+    plot_args:
+      color: black
+  - type: Arrow
+    x: 1.2
+    y: f(1.2) 
+    dx: -1
+    dy: 1
+    plot_args:
+      color: black
+  - type: Arrow
+    x: 1.3
+    y: f(1.3) 
+    dx: -1
+    dy: 1
+    plot_args:
+      color: black
+     

@@ -13,6 +13,7 @@ nav:
     - Flächen: area.md
     - Geraden: lines.md
     - Beschreibungsdatei: description_file.md
+    - Funktionen: function.md
     - Überblick der Items: items.md
 
 exclude_docs: |
