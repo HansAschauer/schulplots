@@ -34,12 +34,12 @@ Diese Datei speichern wir als `tutorial.yaml` in einem geeigneten Verzeichnis ab
 
 Als nächstes öffnen wir ein Terminal-Fenster (`cmd.exe` unter Windows, `konsole` unter Linux) und wechsel in dieses Verzeichnis (`cd <Verzeichnis>`). 
 
-Danach können wir den Befehl `schulplot tutorial.yaml` in das Terminal-Fenster tippen und mit der Enter-Taste ausführen. Das erzeugt unsere Abbildung in einer neue Datei `tutorial.png` im aktuellen Verzeichnis:
+Danach können wir den Befehl `schulplots tutorial.yaml` in das Terminal-Fenster tippen und mit der Enter-Taste ausführen. Das erzeugt unsere Abbildung in einer neue Datei `tutorial.png` im aktuellen Verzeichnis:
 
 
 <img src="../images/tutorial1.png" alt="Sinuskurve" width="900"/>
 
-In jedem Schritt des Tutorial werden wir die Datei erweitern. Nach dem Abspeichern muss jeweils wieder das Kommando `schulplot tutorial.yaml` aufgerufen werden.
+In jedem Schritt des Tutorial werden wir die Datei erweitern. Nach dem Abspeichern muss jeweils wieder das Kommando `schulplots tutorial.yaml` aufgerufen werden.
 
 ## Das Achsensystem
 
