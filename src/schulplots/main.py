@@ -11,7 +11,7 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
 
 def generate_plot(infile: str, outfile: Optional[str] = None):
-    with open(infile, "r") as f:
+    with open(infile, "r", encoding="utf-8") as f:
         fdsc = converter.loads(f.read(), FigureDescription)
         fdsc.figure.output_file = outfile
         fdsc.create_figure()
