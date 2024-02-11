@@ -32,6 +32,8 @@ Die `axes` Struktur besitzt folgende Attribute:
 | `y_label_offset` | Verschiebung des y-Achsen-Bezeichners | x: 0.5cm, y: 0cm |
 | `x_tick_distance` | Abstand der x-Achsenmarkierung | 1 |
 | `y_tick_distance` | Abstand der y-Achsenmarkierung | 1 |
+| `show_x_tick_labels` | Sollen die Zahlen unter der x-Achse angezeigt werden? | true |
+| `show_y_tick_labels` | Sollen die Zahlen neben der y-Achse angezeigt werden? | true |
 | `show_legend` | Soll die legende angezeigt werden? | true |
 | `legend_options` | Weitere Optionen [(Other Parameters)](https://matplotlib.org/stable/api/legend_api.html#matplotlib.legend.Legend) für die Darstellung der Legende (**)| *keine* |
 | `n_points` | Anzahl der Datenpunkte für die Darstellung von Graphen | 3000 |
