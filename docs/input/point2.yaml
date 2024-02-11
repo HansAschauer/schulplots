@@ -1,0 +1,33 @@
+figure:
+  height: 8cm
+  width: 12cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 10cm
+    x_min: -1.5
+    y_min: -2
+    show_legend: true
+  bottom: 1cm
+  left: 1cm
+  functions:
+    f: 3* sin(x)
+  items:
+  - type: Graph
+    function: f(x)
+    label: $\sin(x)$
+  - type: Point
+    x: 1
+    y: f(1)
+    label: P
+  - type: Point
+    x: 2
+    y: f(2)
+    label: Q
+    angle: 20
+  - type: Point
+    x: 3
+    y: f(3)
+    label: R
+    angle: 20
+    

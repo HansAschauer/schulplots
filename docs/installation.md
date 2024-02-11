@@ -8,5 +8,9 @@ Daneben benötigt die Installation den Python-Paketmanager `pip`. Sofern dieser 
 
 Jetzt kann man `schulplots` installieren:
 
- `pip install schulplots` 
+- Linux: hier reicht ein Aufruf von `pip install schulplots` in der Kommandozeile
+
+- Windows: In den Verzeichnis, in dem Python installiert wurde, gibt es einen Ordner namens `Scripts`. Öffne eine Kommandozeile (Eingabeaufforderung, cmd.exe) und wechsle in diesen Ordner (`cd <Python-Ordner>\Scripts`). Danach rufe `pip install schulplots` auf.
+
+
  

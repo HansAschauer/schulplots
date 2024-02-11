@@ -12,7 +12,7 @@ axes_descriptors:
   items:
   - type: Graph
     function: (x-4)*(x-1)*(x+3) / (4*(x-3)*(x+4))
-    label: $\dfrac{x^3-2x^2-11x+12}{4x²+4x-48}$
+    label: $\dfrac{x^3-2x^2-11x+12}{4x^2+4x-48}$
   - type: Graph
     function: 1/4*x -0.5
     label: Asymptote

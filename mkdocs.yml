@@ -12,6 +12,7 @@ nav:
     - Graphen: graph.md
     - Flächen: area.md
     - Geraden: lines.md
+    - Punkte: point.md
     - Beschreibungsdatei: description_file.md
     - Funktionen: function.md
     - Überblick der Items: items.md

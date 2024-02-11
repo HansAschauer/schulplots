@@ -1,0 +1,32 @@
+figure:
+  height: 8cm
+  width: 12cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 10cm
+    x_min: -1.5
+    y_min: -2
+    show_legend: true
+  bottom: 1cm
+  left: 1cm
+  items:
+  - type: Point
+    x: 1
+    y: 1
+    label: P
+  - type: Point
+    x: 2
+    y: 3
+    label: R
+    angle: 0
+  - type: Point
+    x: 3
+    y: -1
+    angle: 180
+    marker: ">"
+    label: Q
+    plot_args_label:
+      color: blue
+    plot_args_point:
+      color: blue
