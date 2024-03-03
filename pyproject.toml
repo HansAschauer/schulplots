@@ -34,3 +34,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 schulplots = "schulplots.main:main"
+schulplots-create = "schulplots.main:create"

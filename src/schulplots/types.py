@@ -37,6 +37,9 @@ class Size(float):
     def __repr__(self):
         return self._init_as
     __str__ = __repr__
+    @classmethod
+    def as_cm(cls, value: float):
+        return cls(f"{round(value/cm, 3)}cm")
 
 @dataclass(frozen=True)
 class Point:

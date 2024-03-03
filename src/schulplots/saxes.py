@@ -30,6 +30,8 @@ class SAxesModel:
     y_tick_distance: float = 1
     unit:Size = Size(1*cm)
     show_legend: bool = True
+    show_x_tick_labels: bool = True
+    show_y_tick_labels: bool = True
     legend_options: dict[str, Any] = field(default_factory=dict)    
     n_points = 3000
     x_label_offset: Point = Point(Size(0.5*cm), Size(0))
@@ -101,6 +103,11 @@ class SAxes(SAxesModel):
         spine_y.set_position(('data', 0))
         self.axes.plot(1, 0, ">k", transform=self.axes.get_yaxis_transform(), clip_on=False)
         self.axes.plot(0, 1, "^k", transform=self.axes.get_xaxis_transform(), clip_on=False)
+
+        if self.show_x_tick_labels is False:
+            self.axes.set_xticklabels([])
+        if self.show_y_tick_labels is False:
+            self.axes.set_yticklabels([])
 
         self.axes.spines['top'].set_visible(False)
         self.axes.spines['right'].set_visible(False)
