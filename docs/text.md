@@ -26,7 +26,7 @@ Für die `text_args` siehe die [Dokumentation von Matplotlib](https://matplotlib
 
 #### Beispiel 2: Text mit mehreren Zeilen
 Texte können sich über mehrere Zeilen erstrecken. Dazu wird in der YAML-Datei
-eine spzeielle Syntax verwendet, die (hier)[https://yaml-multiline.info/]
+eine spzeielle Syntax verwendet, die [hier](https://yaml-multiline.info/)
 beschrieben wird.
 
 
