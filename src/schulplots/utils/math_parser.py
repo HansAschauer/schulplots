@@ -279,7 +279,6 @@ if __name__ == "__main__":
             if val == expected:
                 print(s, "=", val, p.results, "=>", p.exprStack)
             else:
-                1/0
                 print(s + "!!!", val, "!=", expected, p.results, "=>", p.exprStack)
 
     test("9", 9)
