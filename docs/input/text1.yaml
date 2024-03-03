@@ -1,0 +1,37 @@
+figure:
+  height: 8cm
+  width: 12cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 10cm
+    x_min: -1.5
+    y_min: -2
+    show_legend: false
+  bottom: 1cm
+  left: 1cm
+  items:
+  - type: Text
+    x: 1
+    y: 1
+    text: Hallo Text!
+  - type: Text
+    x: 4
+    y: 1
+    text: Hallo Text!
+    text_args:
+      color: blue
+  - type: Text
+    x: 1
+    y: 2
+    text: Hallo Text!
+    text_args:
+      color: blue
+      fontfamily: serif
+      fontstyle: italic
+  - type: Text
+    x: 4
+    y: 2
+    text: Hallo Text!
+    text_args:
+      fontsize: x-large

@@ -1,0 +1,66 @@
+figure:
+  height: 8cm
+  width: 12cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 10cm
+    x_min: -0.5
+    y_min: -2
+    show_legend: false
+  bottom: 1cm
+  left: 1cm
+  items:
+  - type: Text
+    x: 1
+    y: 3
+    text: "Baseline: qpgÄ"
+    text_args:
+      va: baseline
+      ha: left
+      fontsize: large
+  - type: Point
+    x: 1
+    y: 3
+    plot_args_point:
+      color: red
+  - type: Text
+    x: 4.5
+    y: 3
+    text: "Unten: qpgÄ"
+    text_args:
+      va: bottom
+      ha: left
+      fontsize: large
+  - type: Point
+    x: 4.5
+    y: 3
+    plot_args_point:
+      color: red
+  - type: Text
+    x: 7.5
+    y: 3
+    text: "Oben"
+    text_args:
+      va: top
+      ha: left
+      fontsize: large
+  - type: Point
+    x: 7.5
+    y: 3
+    plot_args_point:
+      color: red
+  - type: Text
+    x: 5
+    y: 1
+    text: "Mitte-Mitte"
+    text_args:
+      va: center
+      ha: center
+      fontsize: large
+  - type: Point
+    x: 5
+    y: 1
+    plot_args_point:
+      color: red
+    
