@@ -23,7 +23,7 @@ class PointModel:
     class_id: ClassVar[str] = "Point"    
     x: MathExpression
     y: MathExpression
-    label: str
+    label: str = ""
     angle: float = 90
     distance: Size = Size(0.5*cm)
     marker: str = "x"
