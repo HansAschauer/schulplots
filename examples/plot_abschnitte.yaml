@@ -1,0 +1,22 @@
+figure:
+  height: 8cm
+  width: 11cm
+axes_descriptors:
+- axes:
+    height: 6cm
+    width: 4cm
+    x_min: -1
+    y_min: -3
+    show_legend: false
+  bottom: 1cm
+  left: 1cm
+  functions:
+    f1: (x-1)^2 -1
+    f2: -((x+1) ^2) +1
+  items:
+  - type: Graph
+    function: f2(x)
+  - type: Graph
+    function: f1(x)
+  - type: Graph
+    function: f1(x) * heaviside(x, 0) + f2(x) * heaviside(-x,0)

@@ -204,13 +204,13 @@ class MathParser:
         if isinstance(op, tuple):
             op, num_args = op
         if op == "unary -":
-            return -MathParser.evaluate_stack(s, var_dict)
+            return -MathParser.evaluate_stack(s, var_dict, func_dict)
         if op == "unary not":
-            return ~ MathParser.evaluate_stack(s, var_dict)
+            return ~ MathParser.evaluate_stack(s, var_dict, func_dict)
         if op in opn:
             # note: operands are pushed onto the stack in reverse order
-            op2 = MathParser.evaluate_stack(s, var_dict)
-            op1 = MathParser.evaluate_stack(s, var_dict)
+            op2 = MathParser.evaluate_stack(s, var_dict, func_dict)
+            op1 = MathParser.evaluate_stack(s, var_dict, func_dict)
             return opn[op](op1, op2)
         elif op.lower() == "pi":
             return math.pi  # 3.1415926535
@@ -218,7 +218,7 @@ class MathParser:
             return math.e  # 2.718281828
         elif op in func_dict:
             # note: args are pushed onto the stack in reverse order
-            args = reversed([MathParser.evaluate_stack(s, var_dict) for _ in range(num_args)])
+            args = reversed([MathParser.evaluate_stack(s, var_dict, func_dict) for _ in range(num_args)])
             return func_dict[op](*args)
         elif op.isidentifier():
             try:
